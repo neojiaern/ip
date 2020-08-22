@@ -3,16 +3,16 @@ import java.util.Scanner;
 public class Duke {
 
     // list the tasks
-    public static void listTasks(String[] list, int count){
-        if (count == 0){
+    public static void listTasks(Task[] tasks, int count) {
+        if (count == 0) {
             System.out.println("    ____________________________________________________________");
             System.out.println("     There is currently no task.");
             System.out.println("    ____________________________________________________________\n");
         }
-        else{
+        else {
             System.out.println("    ____________________________________________________________");
-            for(int i = 1; i <= count; i++){
-                System.out.println("     " + i + ". " + list[i-1]);
+            for(int i = 1; i <= count; i++) {
+                System.out.println("     " + i + ". " + tasks[i-1].getTaskName());
             }
             System.out.println("    ____________________________________________________________\n");
         }
@@ -35,14 +35,14 @@ public class Duke {
         String userInput;
         Scanner in = new Scanner(System.in);
         userInput = in.nextLine();
-        String[] list = new String[100];
+        Task[] tasks = new Task[100];
         int count = 0;
         while (!userInput.equalsIgnoreCase("bye")) {
-            if (userInput.equalsIgnoreCase("list")){
-                listTasks(list, count);
+            if (userInput.equalsIgnoreCase("list")) {
+                listTasks(tasks, count);
             }
             else {
-                list[count] = userInput;
+                tasks[count] = new Task(userInput);
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     added: " + userInput);
                 System.out.println("    ____________________________________________________________\n");
