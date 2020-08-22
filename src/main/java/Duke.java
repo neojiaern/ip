@@ -3,15 +3,15 @@ import java.util.Scanner;
 public class Duke {
 
     // list the tasks
-    public static void listTasks(String[] list, int count){
-        if (count == 0){
+    public static void listTasks(String[] list, int count) {
+        if (count == 0) {
             System.out.println("    ____________________________________________________________");
             System.out.println("     There is currently no task.");
             System.out.println("    ____________________________________________________________\n");
         }
-        else{
+        else {
             System.out.println("    ____________________________________________________________");
-            for(int i = 1; i <= count; i++){
+            for(int i = 1; i <= count; i++) {
                 System.out.println("     " + i + ". " + list[i-1]);
             }
             System.out.println("    ____________________________________________________________\n");
@@ -38,11 +38,12 @@ public class Duke {
         String[] list = new String[100];
         int count = 0;
         while (!userInput.equalsIgnoreCase("bye")) {
-            if (userInput.equalsIgnoreCase("list")){
+            if (userInput.equalsIgnoreCase("list")) {
                 listTasks(list, count);
             }
             else {
                 list[count] = userInput;
+                Task t = new Task(userInput);
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     added: " + userInput);
                 System.out.println("    ____________________________________________________________\n");
