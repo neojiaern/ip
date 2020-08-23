@@ -8,12 +8,11 @@ public class Duke {
             System.out.println("    ____________________________________________________________");
             System.out.println("     There is currently no task.");
             System.out.println("    ____________________________________________________________\n");
-        }
-        else {
+        } else {
             System.out.println("    ____________________________________________________________");
             for(int i = 1; i <= count; i++) {
                 System.out.println("     " + i + "." + tasks[i-1].getStatusIcon()
-                        + " " + tasks[i-1].getTaskName());
+                    + " " + tasks[i-1].getTaskName());
             }
             System.out.println("    ____________________________________________________________\n");
         }
@@ -41,18 +40,16 @@ public class Duke {
         while (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
                 listTasks(tasks, count);
-            }
-            else if (userInput.contains("done")) {
+            } else if (userInput.contains("done")) {
                 String[] inputArr = userInput.split(" ");
                 int doneIndex = Integer.parseInt(inputArr[1]);
                 tasks[doneIndex-1].markAsDone();
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     Nice! I've marked this task as done:");
                 System.out.println("     " + "  " + tasks[doneIndex-1].getStatusIcon()
-                        + " " + tasks[doneIndex-1].getTaskName());
+                    + " " + tasks[doneIndex-1].getTaskName());
                 System.out.println("    ____________________________________________________________\n");
-            }
-            else {
+            } else {
                 tasks[count] = new Task(userInput);
                 System.out.println("    ____________________________________________________________");
                 System.out.println("     added: " + userInput);
