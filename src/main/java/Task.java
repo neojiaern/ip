@@ -1,4 +1,8 @@
 public class Task {
+
+    public static final String TICK = "[✓]";
+    public static final String CROSS = "[✗]";
+
     private String taskName;
     private boolean isDone;
 
@@ -12,7 +16,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[✓]" : "[✗]"); //return tick or X symbols
+        return (isDone ? TICK : CROSS); //return tick or X symbols
     }
 
     public void markAsDone() {
