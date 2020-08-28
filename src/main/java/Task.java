@@ -15,6 +15,10 @@ public class Task {
         return taskName;
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? TICK : CROSS); //return tick or X symbols
     }
