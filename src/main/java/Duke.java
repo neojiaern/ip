@@ -15,6 +15,9 @@ public class Duke {
             + "____________________________________________________________" + ANSI_RESET;
     public static final int MAX_NUM = 100;
 
+    public static Task[] tasks = new Task[MAX_NUM];
+    public static int count = 0;
+
     public static void main(String[] args) {
         printGreetMsg();
         String userInput = takeInUserInput();
@@ -43,21 +46,20 @@ public class Duke {
 
     public static void processUserInput(String userInput) {
         Scanner in = new Scanner(System.in);
-        Task[] tasks = new Task[MAX_NUM];
-        int count = 0;
+
         while (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
-                listTasks(tasks, count);
+                listTasks();
             } else if (userInput.contains("done")) {
-                doneTask(userInput, tasks);
+                doneTask(userInput);
             } else {
-                count = addTask(userInput, tasks, count);
+                addTask(userInput);
             }
             userInput = in.nextLine();
         }
     }
 
-    public static void listTasks(Task[] tasks, int count) {
+    public static void listTasks() {
         if (count == 0) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "There is currently no task.");
@@ -78,7 +80,7 @@ public class Duke {
         }
     }
 
-    public static void doneTask(String userInput, Task[] tasks) {
+    public static void doneTask(String userInput) {
         String[] inputArr = userInput.split(" ");
         int doneIndex = Integer.parseInt(inputArr[1]);
         tasks[doneIndex-1].markAsDone();
@@ -89,7 +91,7 @@ public class Duke {
         System.out.println(LINE + "\n");
     }
 
-    public static int addTask(String userInput, Task[] tasks, int count) {
+    public static int addTask(String userInput) {
         tasks[count] = new Task(userInput);
         System.out.println(LINE);
         System.out.println(INDENTATION + " added: " + ANSI_YELLOW + userInput + ANSI_RESET);
