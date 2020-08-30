@@ -3,8 +3,6 @@ import java.util.Scanner;
 public class Duke {
 
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String SMILEY_FACE = "\uD83D\uDE00";
@@ -46,6 +44,7 @@ public class Duke {
 
     public static void processUserInput(String userInput) {
         Scanner in = new Scanner(System.in);
+        userInput = userInput.toLowerCase();
 
         while (!userInput.equalsIgnoreCase("bye")) {
             if (userInput.equalsIgnoreCase("list")) {
@@ -59,6 +58,36 @@ public class Duke {
         }
     }
 
+    public static void addTask(String userInput) {
+        String[] inputParts = userInput.split(" ", 2);
+        switch (inputParts[0]) {
+        case "todo":
+            tasks[count] = new Todo(inputParts[1]);
+            break;
+        case "deadline":
+            String[] deadlineParts = inputParts[1].split(" /by ");
+            tasks[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
+            break;
+        case "event":
+            String[] eventParts = inputParts[1].split(" /at ");
+            tasks[count] = new Event(eventParts[0], eventParts[1]);
+            break;
+        default:
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Sorry, you have keyed in an invalid command, please try again.");
+            System.out.println(LINE + "\n");
+            return;
+        }
+        count++;
+
+        System.out.println(LINE);
+        System.out.println(INDENTATION + "Got it. I've added this task:");
+        System.out.println(INDENTATION + "  " + tasks[count-1]);
+        System.out.println(INDENTATION + "Now you have " + ANSI_YELLOW
+                + count + " task(s) " + ANSI_RESET + "in the list.");
+        System.out.println(LINE + "\n");
+    }
+
     public static void listTasks() {
         if (count == 0) {
             System.out.println(LINE);
@@ -66,15 +95,10 @@ public class Duke {
             System.out.println(LINE + "\n");
         } else {
             System.out.println(LINE);
+            System.out.println(INDENTATION + "Here are the tasks in your list:");
             for(int i = 1; i <= count; i++) {
-                if (tasks[i-1].getStatus()) {
-                    System.out.println(INDENTATION + " " + i + "." + ANSI_GREEN + tasks[i - 1].getStatusIcon()
-                            + " " + tasks[i - 1].getTaskName() + ANSI_RESET);
-                } else {
-                    System.out.println(INDENTATION + " " + i + "." + ANSI_RED + tasks[i - 1].getStatusIcon()
-                            + " " + tasks[i - 1].getTaskName() + ANSI_RESET);
-                }
-
+                System.out.print(INDENTATION + i + ".");
+                System.out.println(tasks[i-1]);
             }
             System.out.println(LINE + "\n");
         }
@@ -86,18 +110,8 @@ public class Duke {
         tasks[doneIndex-1].markAsDone();
         System.out.println(LINE);
         System.out.println(INDENTATION + "Nice! " + THUMBS_UP + " I've marked this task as done:");
-        System.out.println(INDENTATION + "   " + ANSI_GREEN + tasks[doneIndex-1].getStatusIcon()
-                + " " + tasks[doneIndex-1].getTaskName() + ANSI_RESET);
+        System.out.println(INDENTATION + "  " + tasks[doneIndex-1]);
         System.out.println(LINE + "\n");
-    }
-
-    public static int addTask(String userInput) {
-        tasks[count] = new Task(userInput);
-        System.out.println(LINE);
-        System.out.println(INDENTATION + " added: " + ANSI_YELLOW + userInput + ANSI_RESET);
-        System.out.println(LINE + "\n");
-        count++;
-        return count;
     }
 
     public static void printByeMsg() {
