@@ -13,7 +13,7 @@ public class Duke {
 
     public static void main(String[] args) {
         printGreetMsg();
-        String userInput = takeInUserInput();
+        String userInput = in.nextLine();
         processUserInput(userInput);
         printByeMsg();
     }
@@ -25,44 +25,43 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
-
         System.out.println(LINE);
         System.out.println(INDENTATION + "Hello! I'm Duke.");
         System.out.println(INDENTATION + "What can I do for you?");
         System.out.println(LINE + "\n");
     }
 
-    public static String takeInUserInput(){
-        return in.nextLine();
-    }
-
     public static void processUserInput(String userInput) {
         userInput = userInput.toLowerCase();
 
-        while (!userInput.equalsIgnoreCase("bye")) {
-            if (userInput.equalsIgnoreCase("list")) {
+        while (!userInput.equals("bye")) {
+            String[] inputParts = userInput.split(" ", 2);
+            switch (inputParts[0]){
+            case "list":
                 listTasks();
-            } else if (userInput.contains("done")) {
-                doneTask(userInput);
-            } else {
-                addTask(userInput);
+                break;
+            case "done":
+                doneTask(inputParts[1]);
+                break;
+            default:
+                addTask(inputParts[0], inputParts[1]);
+                break;
             }
             userInput = in.nextLine();
         }
     }
 
-    public static void addTask(String userInput) {
-        String[] inputParts = userInput.split(" ", 2);
-        switch (inputParts[0]) {
+    public static void addTask(String taskType, String description) {
+        switch (taskType) {
         case "todo":
-            tasks[count] = new Todo(inputParts[1]);
+            tasks[count] = new Todo(description);
             break;
         case "deadline":
-            String[] deadlineParts = inputParts[1].split(" /by ");
+            String[] deadlineParts = description.split(" /by ");
             tasks[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
             break;
         case "event":
-            String[] eventParts = inputParts[1].split(" /at ");
+            String[] eventParts = description.split(" /at ");
             tasks[count] = new Event(eventParts[0], eventParts[1]);
             break;
         default:
@@ -97,9 +96,8 @@ public class Duke {
         }
     }
 
-    public static void doneTask(String userInput) {
-        String[] inputArr = userInput.split(" ");
-        int doneIndex = Integer.parseInt(inputArr[1]);
+    public static void doneTask(String num) {
+        int doneIndex = Integer.parseInt(num);
         tasks[doneIndex-1].markAsDone();
         System.out.println(LINE);
         System.out.println(INDENTATION + "Nice! I've marked this task as done:");
