@@ -75,8 +75,7 @@ public class Duke {
         System.out.println(LINE);
         System.out.println(INDENTATION + "Got it. I've added this task:");
         System.out.println(INDENTATION + "  " + tasks[count-1]);
-        System.out.println(INDENTATION + "Now you have "
-                + count + " task(s) in the list.");
+        System.out.println(INDENTATION + "Now you have " + count + " task(s) in the list.");
         System.out.println(LINE + "\n");
     }
 
