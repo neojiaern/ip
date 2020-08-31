@@ -1,0 +1,8 @@
+deadline assignment /by monday
+event project meeting /at tuesday 4pm
+todo homework
+list
+done 2
+done 3
+list
+bye

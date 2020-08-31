@@ -9,6 +9,7 @@ public class Duke {
 
     public static Task[] tasks = new Task[MAX_NUM];
     public static int count = 0;
+    public static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
         printGreetMsg();
@@ -32,12 +33,10 @@ public class Duke {
     }
 
     public static String takeInUserInput(){
-        Scanner in = new Scanner(System.in);
         return in.nextLine();
     }
 
     public static void processUserInput(String userInput) {
-        Scanner in = new Scanner(System.in);
         userInput = userInput.toLowerCase();
 
         while (!userInput.equalsIgnoreCase("bye")) {
