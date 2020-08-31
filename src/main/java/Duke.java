@@ -89,8 +89,7 @@ public class Duke {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Here are the tasks in your list:");
             for(int i = 1; i <= count; i++) {
-                System.out.print(INDENTATION + i + ".");
-                System.out.println(tasks[i-1]);
+                System.out.println(INDENTATION + i + "." + tasks[i-1]);
             }
             System.out.println(LINE + "\n");
         }
