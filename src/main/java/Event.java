@@ -9,6 +9,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return getStatusColor() + "[E]" + super.toString() + " (at: " + at + ")" + ANSI_RESET;
+        return "[E]" + super.toString() + " (at: " + at + ")";
     }
 }

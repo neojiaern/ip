@@ -9,6 +9,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return getStatusColor() + "[D]" + super.toString() + " (by: " + by + ")" + ANSI_RESET;
+        return "[D]" + super.toString() + " (by: " + by + ")";
     }
 }

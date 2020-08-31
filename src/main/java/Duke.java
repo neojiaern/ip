@@ -2,15 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String SMILEY_FACE = "\uD83D\uDE00";
-    public static final String SAD_FACE = "\u2639";
-    public static final String THUMBS_UP = "\uD83D\uDC4D";
     public static final String INDENTATION = "    ";
     public static final String LINE = INDENTATION
-            + "____________________________________________________________" + ANSI_RESET;
+            + "____________________________________________________________";
     public static final int MAX_NUM = 100;
 
     public static Task[] tasks = new Task[MAX_NUM];
@@ -24,15 +18,15 @@ public class Duke {
     }
 
     public static void printGreetMsg() {
-        String logo = ANSI_BLUE + " ____        _        \n"
+        String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n" + ANSI_RESET;
+                + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
 
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Hello! I'm " + ANSI_BLUE + "Duke " + ANSI_RESET  + SMILEY_FACE);
+        System.out.println(INDENTATION + "Hello! I'm Duke.");
         System.out.println(INDENTATION + "What can I do for you?");
         System.out.println(LINE + "\n");
     }
@@ -83,8 +77,8 @@ public class Duke {
         System.out.println(LINE);
         System.out.println(INDENTATION + "Got it. I've added this task:");
         System.out.println(INDENTATION + "  " + tasks[count-1]);
-        System.out.println(INDENTATION + "Now you have " + ANSI_YELLOW
-                + count + " task(s) " + ANSI_RESET + "in the list.");
+        System.out.println(INDENTATION + "Now you have "
+                + count + " task(s) in the list.");
         System.out.println(LINE + "\n");
     }
 
@@ -109,14 +103,14 @@ public class Duke {
         int doneIndex = Integer.parseInt(inputArr[1]);
         tasks[doneIndex-1].markAsDone();
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Nice! " + THUMBS_UP + " I've marked this task as done:");
+        System.out.println(INDENTATION + "Nice! I've marked this task as done:");
         System.out.println(INDENTATION + "  " + tasks[doneIndex-1]);
         System.out.println(LINE + "\n");
     }
 
     public static void printByeMsg() {
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Bye " + SAD_FACE + " Hope to see you again soon!");
+        System.out.println(INDENTATION + "Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
 }

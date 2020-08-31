@@ -5,6 +5,6 @@ public class Todo extends Task {
     }
 
     public String toString() {
-        return getStatusColor() + "[T]" + super.toString() + ANSI_RESET;
+        return "[T]" + super.toString();
     }
 }
