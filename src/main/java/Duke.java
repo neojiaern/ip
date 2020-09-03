@@ -32,11 +32,10 @@ public class Duke {
     }
 
     public static void processUserInput(String userInput) {
-        userInput = userInput.toLowerCase();
-
-        while (!userInput.equals("bye")) {
+        while (!userInput.equalsIgnoreCase("bye")) {
             String[] inputParts = userInput.split(" ", 2);
-            switch (inputParts[0]){
+            String command = inputParts[0].toLowerCase();
+            switch (command){
             case "list":
                 listTasks();
                 break;
@@ -44,7 +43,7 @@ public class Duke {
                 doneTask(inputParts[1]);
                 break;
             default:
-                addTask(inputParts[0], inputParts[1]);
+                addTask(command, inputParts[1]);
                 break;
             }
             userInput = in.nextLine();
