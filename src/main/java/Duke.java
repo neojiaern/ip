@@ -46,10 +46,10 @@ public class Duke {
                 listTasks();
                 break;
             case "done":
-                doneTask(inputParts[1]);
+                doneTask(userInput);
                 break;
             default:
-                addTask(command, inputParts[1]);
+                addTask(userInput);
                 break;
             }
             userInput = in.nextLine();
@@ -59,25 +59,33 @@ public class Duke {
     /**
      * Adds task user specified and prints output msg
      *
-     * @param taskType todo, deadline or event.
-     * @param description task details.
+     * @param userInput user input containing taskType and description.
      */
-    public static void addTask(String taskType, String description) {
-        switch (taskType) {
-        case "todo":
-            tasks[count] = new Todo(description);
-            break;
-        case "deadline":
-            String[] deadlineParts = description.split(" /by ");
-            tasks[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
-            break;
-        case "event":
-            String[] eventParts = description.split(" /at ");
-            tasks[count] = new Event(eventParts[0], eventParts[1]);
-            break;
-        default:
+    public static void addTask(String userInput) {
+        String[] inputParts = userInput.split(" ", 2);
+        String taskType = inputParts[0];
+        try {
+            switch (taskType) {
+            case "todo":
+                tasks[count] = new Todo(inputParts[1]);
+                break;
+            case "deadline":
+                String[] deadlineParts = inputParts[1].split(" /by ");
+                tasks[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                break;
+            case "event":
+                String[] eventParts = inputParts[1].split(" /at ");
+                tasks[count] = new Event(eventParts[0], eventParts[1]);
+                break;
+            default:
+                System.out.println(LINE);
+                System.out.println(INDENTATION + "Sorry, you have keyed in an invalid command, please try again.");
+                System.out.println(LINE + "\n");
+                return;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
-            System.out.println(INDENTATION + "Sorry, you have keyed in an invalid command, please try again.");
+            System.out.println(INDENTATION + "Oh no! The description of " + taskType + " cannot be empty.");
             System.out.println(LINE + "\n");
             return;
         }
@@ -109,15 +117,25 @@ public class Duke {
     /**
      * Marks task specified by user as done
      * Prints output msg
+     * Handles error when user input is incorrect
      *
-     * @param num task number in the list that user has completed.
+     * @param userInput user input containing done command and index of task in list.
      */
-    public static void doneTask(String num) {
-        int doneIndex = Integer.parseInt(num);
-        tasks[doneIndex-1].markAsDone();
-        System.out.println(LINE);
-        System.out.println(INDENTATION + "Nice! I've marked this task as done:");
-        System.out.println(INDENTATION + "  " + tasks[doneIndex-1]);
+    public static void doneTask(String userInput) {
+        String[] inputParts = userInput.split(" ", 2);
+        try {
+            int doneIndex = Integer.parseInt(inputParts[1]);
+            tasks[doneIndex-1].markAsDone();
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Nice! I've marked this task as done:");
+            System.out.println(INDENTATION + "  " + tasks[doneIndex-1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
+        } catch (NumberFormatException e) {
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Oh no! The index for a completed task must be an integer.");
+        }
         System.out.println(LINE + "\n");
     }
 
