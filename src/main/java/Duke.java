@@ -31,6 +31,12 @@ public class Duke {
         System.out.println(LINE + "\n");
     }
 
+    /**
+     * Calls the respective methods for the different commands: list, done and add task
+     * Unless "bye" is entered, continue to take in user input
+     *
+     * @param userInput user's input.
+     */
     public static void processUserInput(String userInput) {
         while (!userInput.equalsIgnoreCase("bye")) {
             String[] inputParts = userInput.split(" ", 2);
@@ -50,6 +56,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds task user specified and prints output msg
+     *
+     * @param taskType todo, deadline or event.
+     * @param description task details.
+     */
     public static void addTask(String taskType, String description) {
         switch (taskType) {
         case "todo":
@@ -78,6 +90,7 @@ public class Duke {
         System.out.println(LINE + "\n");
     }
 
+    // prints tasks present in list
     public static void listTasks() {
         if (count == 0) {
             System.out.println(LINE);
@@ -93,6 +106,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Marks task specified by user as done
+     * Prints output msg
+     *
+     * @param num task number in the list that user has completed.
+     */
     public static void doneTask(String num) {
         int doneIndex = Integer.parseInt(num);
         tasks[doneIndex-1].markAsDone();
