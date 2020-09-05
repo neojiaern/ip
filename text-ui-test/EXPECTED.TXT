@@ -10,6 +10,10 @@
     ____________________________________________________________
 
     ____________________________________________________________
+    There is currently no task.
+    ____________________________________________________________
+
+    ____________________________________________________________
     Got it. I've added this task:
       [D][✗] assignment (by: monday)
     Now you have 1 task(s) in the list.
@@ -28,10 +32,71 @@
     ____________________________________________________________
 
     ____________________________________________________________
+    Oh no! The description of todo cannot be empty.
+    todo: Adds a todo task.
+      Parameters: TASK_DESCRIPTION
+      Example: todo study
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The description of deadline cannot be empty.
+    deadline: Adds a deadline task.
+      Parameters: TASK_DESCRIPTION /by TIME
+      Example: deadline CS2113T assignment /by Monday
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The description of event cannot be empty.
+    event: Adds an event task.
+      Parameters: TASK_DESCRIPTION /at TIME
+      Example: event project meeting /at Tuesday 2pm
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! There should be no description after list.
+    list: Display all tasks entered by user.
+      Example: list
+    ____________________________________________________________
+
+    ____________________________________________________________
     Here are the tasks in your list:
     1.[D][✗] assignment (by: monday)
     2.[E][✗] project meeting (at: tuesday 4pm)
     3.[T][✗] homework
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! This command is invalid, please try again.
+    list: Display all tasks entered by user.
+      Example: list
+    todo: Adds a todo task.
+      Parameters: TASK_DESCRIPTION
+      Example: todo study
+    deadline: Adds a deadline task.
+      Parameters: TASK_DESCRIPTION /by TIME
+      Example: deadline CS2113T assignment /by Monday
+    event: Adds an event task.
+      Parameters: TASK_DESCRIPTION /at TIME
+      Example: event project meeting /at Tuesday 2pm
+    done: Marks a completed task as done.
+      Parameters: INDEX_OF_COMPLETED_TASK
+      Example: done 2
+    bye: Exits the program.
+      Example: bye
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The index for a completed task cannot be missing.
+    done: Marks a completed task as done.
+      Parameters: INDEX_OF_COMPLETED_TASK
+      Example: done 2
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The index for a completed task must be an integer.
+    done: Marks a completed task as done.
+      Parameters: INDEX_OF_COMPLETED_TASK
+      Example: done 2
     ____________________________________________________________
 
     ____________________________________________________________
