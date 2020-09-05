@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -42,7 +49,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Hello! I'm Duke.");
+        System.out.println(INDENTATION + "Hello! I'm duke.Duke.");
         System.out.println(INDENTATION + "What can I do for you?");
         System.out.println(LINE + "\n");
     }
