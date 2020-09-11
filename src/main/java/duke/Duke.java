@@ -6,13 +6,13 @@ import duke.task.Task;
 import duke.task.Todo;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static final String INDENTATION = "    ";
     public static final String LINE = INDENTATION
             + "____________________________________________________________";
-    public static final int MAX_NUM = 100;
     public static final String LIST_EXAMPLE = (INDENTATION + "list: Display all tasks entered by user."
             + System.lineSeparator() + INDENTATION + "  " + "Example: list");
     public static final String TODO_EXAMPLE = (INDENTATION + "todo: Adds a todo task."
@@ -31,9 +31,10 @@ public class Duke {
             + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
     public static void main(String[] args) {
-        Task[] tasks = new Task[MAX_NUM];
+        ArrayList<Task> tasks = new ArrayList<>();
         int count = 0;
         Scanner in = new Scanner(System.in);
+
 
         printGreetMsg();
         String userInput = in.nextLine();
@@ -49,7 +50,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
         System.out.println(LINE);
-        System.out.println(INDENTATION + "Hello! I'm duke.Duke.");
+        System.out.println(INDENTATION + "Hello! I'm Duke.");
         System.out.println(INDENTATION + "What can I do for you?");
         System.out.println(LINE + "\n");
     }
@@ -60,7 +61,7 @@ public class Duke {
      *
      * @param userInput user's input.
      */
-    public static void processUserInput(String userInput, Task[] tasks, int count, Scanner in) {
+    public static void processUserInput(String userInput, ArrayList<Task> tasks, int count, Scanner in) {
         while (!userInput.equalsIgnoreCase("bye")) {
             String[] inputParts = userInput.split(" ", 2);
             String command = inputParts[0].toLowerCase();
@@ -79,7 +80,7 @@ public class Duke {
                 doneTask(userInput, tasks);
                 break;
             default:
-                addTask(userInput, tasks, count);
+                count = addTask(userInput, tasks, count);
                 break;
             }
             userInput = in.nextLine();
@@ -91,25 +92,28 @@ public class Duke {
      *
      * @param userInput user input containing taskType and description.
      */
-    public static void addTask(String userInput, Task[] tasks, int count) {
+    public static int addTask(String userInput, ArrayList<Task> tasks, int count) {
         String[] inputParts = userInput.split(" ", 2);
         String taskType = inputParts[0];
         try {
             switch (taskType) {
             case "todo":
-                tasks[count] = new Todo(inputParts[1]);
+                Task todoTask = new Todo(inputParts[1]);
+                tasks.add(todoTask);
                 break;
             case "deadline":
                 String[] deadlineParts = inputParts[1].split(" /by ");
-                tasks[count] = new Deadline(deadlineParts[0], deadlineParts[1]);
+                Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
+                tasks.add(deadlineTask);
                 break;
             case "event":
                 String[] eventParts = inputParts[1].split(" /at ");
-                tasks[count] = new Event(eventParts[0], eventParts[1]);
+                Task eventTask = new Event(eventParts[0], eventParts[1]);
+                tasks.add(eventTask);
                 break;
             default:
                 printExampleInput();
-                return;
+                return count;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
@@ -128,19 +132,21 @@ public class Duke {
                 break;
             }
             System.out.println(LINE + "\n");
-            return;
+            return count;
         }
         count++;
 
         System.out.println(LINE);
         System.out.println(INDENTATION + "Got it. I've added this task:");
-        System.out.println(INDENTATION + "  " + tasks[count-1]);
+        System.out.println(INDENTATION + "  " + tasks.get(count-1));
         System.out.println(INDENTATION + "Now you have " + count + " task(s) in the list.");
         System.out.println(LINE + "\n");
+
+        return count;
     }
 
     // prints tasks present in list
-    public static void listTasks(Task[] tasks, int count) {
+    public static void listTasks(ArrayList<Task> tasks, int count) {
         if (count == 0) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "There is currently no task.");
@@ -148,8 +154,8 @@ public class Duke {
         } else {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Here are the tasks in your list:");
-            for(int i = 1; i <= count; i++) {
-                System.out.println(INDENTATION + i + "." + tasks[i-1]);
+            for (int i = 1; i <= count; i++) {
+                System.out.println(INDENTATION + i + "." + tasks.get(i-1));
             }
             System.out.println(LINE + "\n");
         }
@@ -162,14 +168,14 @@ public class Duke {
      *
      * @param userInput user input containing done command and index of task in list.
      */
-    public static void doneTask(String userInput, Task[] tasks) {
+    public static void doneTask(String userInput, ArrayList<Task> tasks) {
         String[] inputParts = userInput.split(" ", 2);
         try {
             int doneIndex = Integer.parseInt(inputParts[1]);
-            tasks[doneIndex-1].markAsDone();
+            tasks.get(doneIndex-1).markAsDone();
             System.out.println(LINE);
             System.out.println(INDENTATION + "Nice! I've marked this task as done:");
-            System.out.println(INDENTATION + "  " + tasks[doneIndex-1]);
+            System.out.println(INDENTATION + "  " + tasks.get(doneIndex-1));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
