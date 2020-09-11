@@ -82,8 +82,13 @@ public class Duke {
             case "done":
                 doneTask(userInput, tasks);
                 break;
+            case "todo":
+            case "deadline":
+            case"event":
+                count = addTask(inputParts[0], inputParts[1], tasks, count);
+                break;
             default:
-                count = addTask(userInput, tasks, count);
+                printExampleInput();
                 break;
             }
             userInput = in.nextLine();
@@ -93,49 +98,33 @@ public class Duke {
     /**
      * Adds task user specified and prints output msg
      *
-     * @param userInput user input containing taskType and description.
+     * @param taskType specifies type of task.
+     * @param description of task.
      * @param tasks an ArrayList to store tasks.
      * @param count keep a counter for number of tasks currently in list.
      */
-    public static int addTask(String userInput, ArrayList<Task> tasks, int count) {
-        String[] inputParts = userInput.split(" ", 2);
-        String taskType = inputParts[0];
+    public static int addTask(String taskType, String description, ArrayList<Task> tasks, int count) {
         try {
             switch (taskType) {
             case "todo":
-                Task todoTask = new Todo(inputParts[1]);
+                Task todoTask = new Todo(description);
                 tasks.add(todoTask);
                 break;
             case "deadline":
-                String[] deadlineParts = inputParts[1].split(" /by ");
+                String[] deadlineParts = description.split(" /by ");
                 Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
                 tasks.add(deadlineTask);
                 break;
             case "event":
-                String[] eventParts = inputParts[1].split(" /at ");
+                String[] eventParts = description.split(" /at ");
                 Task eventTask = new Event(eventParts[0], eventParts[1]);
                 tasks.add(eventTask);
                 break;
             default:
-                printExampleInput();
                 return count;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE);
-            System.out.println(INDENTATION + "Oh no! The description of " + taskType + " cannot be empty.");
-            switch (taskType) {
-            case "todo":
-                System.out.println(TODO_EXAMPLE);
-                break;
-            case "deadline":
-                System.out.println(DEADLINE_EXAMPLE);
-                break;
-            case "event":
-                System.out.println(EVENT_EXAMPLE);
-                break;
-            default:
-                break;
-            }
+            printEmptyDescriptionMessage(taskType);
             System.out.println(LINE + "\n");
             return count;
         }
@@ -213,6 +202,29 @@ public class Duke {
                 + DEADLINE_EXAMPLE + System.lineSeparator() + EVENT_EXAMPLE + System.lineSeparator()
                 + DONE_EXAMPLE + System.lineSeparator() + BYE_EXAMPLE);
         System.out.println(LINE + "\n");
+    }
+
+    /**
+     * Prints error message for empty description and example during adding of tasks
+     *
+     * @param taskType specifies the type of task.
+     */
+    public static void printEmptyDescriptionMessage(String taskType) {
+        System.out.println(LINE);
+        System.out.println(INDENTATION + "Oh no! The description of " + taskType + " cannot be empty.");
+        switch (taskType) {
+        case "todo":
+            System.out.println(TODO_EXAMPLE);
+            break;
+        case "deadline":
+            System.out.println(DEADLINE_EXAMPLE);
+            break;
+        case "event":
+            System.out.println(EVENT_EXAMPLE);
+            break;
+        default:
+            break;
+        }
     }
 
     public static void printByeMsg() {
