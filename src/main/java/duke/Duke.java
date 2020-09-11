@@ -30,14 +30,14 @@ public class Duke {
     public static final String BYE_EXAMPLE = (INDENTATION + "bye: Exits the program."
             + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
-    public static Task[] tasks = new Task[MAX_NUM];
-    public static int count = 0;
-    public static Scanner in = new Scanner(System.in);
-
     public static void main(String[] args) {
+        Task[] tasks = new Task[MAX_NUM];
+        int count = 0;
+        Scanner in = new Scanner(System.in);
+
         printGreetMsg();
         String userInput = in.nextLine();
-        processUserInput(userInput);
+        processUserInput(userInput, tasks, count, in);
         printByeMsg();
     }
 
@@ -60,7 +60,7 @@ public class Duke {
      *
      * @param userInput user's input.
      */
-    public static void processUserInput(String userInput) {
+    public static void processUserInput(String userInput, Task[] tasks, int count, Scanner in) {
         while (!userInput.equalsIgnoreCase("bye")) {
             String[] inputParts = userInput.split(" ", 2);
             String command = inputParts[0].toLowerCase();
@@ -72,14 +72,14 @@ public class Duke {
                     System.out.println(LIST_EXAMPLE);
                     System.out.println(LINE + "\n");
                 } else {
-                    listTasks();
+                    listTasks(tasks, count);
                 }
                 break;
             case "done":
-                doneTask(userInput);
+                doneTask(userInput, tasks);
                 break;
             default:
-                addTask(userInput);
+                addTask(userInput, tasks, count);
                 break;
             }
             userInput = in.nextLine();
@@ -91,7 +91,7 @@ public class Duke {
      *
      * @param userInput user input containing taskType and description.
      */
-    public static void addTask(String userInput) {
+    public static void addTask(String userInput, Task[] tasks, int count) {
         String[] inputParts = userInput.split(" ", 2);
         String taskType = inputParts[0];
         try {
@@ -140,7 +140,7 @@ public class Duke {
     }
 
     // prints tasks present in list
-    public static void listTasks() {
+    public static void listTasks(Task[] tasks, int count) {
         if (count == 0) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "There is currently no task.");
@@ -162,7 +162,7 @@ public class Duke {
      *
      * @param userInput user input containing done command and index of task in list.
      */
-    public static void doneTask(String userInput) {
+    public static void doneTask(String userInput, Task[] tasks) {
         String[] inputParts = userInput.split(" ", 2);
         try {
             int doneIndex = Integer.parseInt(inputParts[1]);
