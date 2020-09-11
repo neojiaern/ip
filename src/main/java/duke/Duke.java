@@ -60,6 +60,9 @@ public class Duke {
      * Unless "bye" is entered, continue to take in user input
      *
      * @param userInput user's input.
+     * @param tasks an ArrayList to store tasks.
+     * @param count keep a counter for number of tasks currently in list.
+     * @param in scanner to take in user input.
      */
     public static void processUserInput(String userInput, ArrayList<Task> tasks, int count, Scanner in) {
         while (!userInput.equalsIgnoreCase("bye")) {
@@ -91,6 +94,8 @@ public class Duke {
      * Adds task user specified and prints output msg
      *
      * @param userInput user input containing taskType and description.
+     * @param tasks an ArrayList to store tasks.
+     * @param count keep a counter for number of tasks currently in list.
      */
     public static int addTask(String userInput, ArrayList<Task> tasks, int count) {
         String[] inputParts = userInput.split(" ", 2);
@@ -145,7 +150,12 @@ public class Duke {
         return count;
     }
 
-    // prints tasks present in list
+    /**
+     * prints tasks present in list
+     *
+     * @param tasks an ArrayList to store tasks.
+     * @param count keep a counter for number of tasks currently in list.
+     */
     public static void listTasks(ArrayList<Task> tasks, int count) {
         if (count == 0) {
             System.out.println(LINE);
@@ -167,6 +177,7 @@ public class Duke {
      * Handles error when user input is incorrect
      *
      * @param userInput user input containing done command and index of task in list.
+     * @param tasks an ArrayList to store tasks.
      */
     public static void doneTask(String userInput, ArrayList<Task> tasks) {
         String[] inputParts = userInput.split(" ", 2);
