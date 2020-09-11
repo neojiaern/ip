@@ -9,8 +9,14 @@ list abc
 list
 blah
 done
+done 9
 done two
 done 2
 done 3
+list
+delete
+delete 9
+delete two
+delete 2
 list
 bye
