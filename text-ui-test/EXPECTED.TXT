@@ -78,6 +78,9 @@
     event: Adds an event task.
       Parameters: TASK_DESCRIPTION /at TIME
       Example: event project meeting /at Tuesday 2pm
+    delete: Deletes a task from the list.
+      Parameters: INDEX_OF_TASK_TO_DELETE
+      Example: delete 2
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
@@ -87,6 +90,13 @@
 
     ____________________________________________________________
     Oh no! The index for a completed task cannot be missing.
+    done: Marks a completed task as done.
+      Parameters: INDEX_OF_COMPLETED_TASK
+      Example: done 2
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! This task is not found.
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
@@ -114,6 +124,39 @@
     1.[D][✗] assignment (by: monday)
     2.[E][✓] project meeting (at: tuesday 4pm)
     3.[T][✓] homework
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The index for a task to delete cannot be missing.
+    delete: Deletes a task from the list.
+      Parameters: INDEX_OF_TASK_TO_DELETE
+      Example: delete 2
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! This task is not found.
+    delete: Deletes a task from the list.
+      Parameters: INDEX_OF_TASK_TO_DELETE
+      Example: delete 2
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The index for a task to delete must be an integer.
+    delete: Deletes a task from the list.
+      Parameters: INDEX_OF_TASK_TO_DELETE
+      Example: delete 2
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Noted. I've removed this task:
+     [E][✓] project meeting (at: tuesday 4pm)
+    Now you have 2 task(s) in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1.[D][✗] assignment (by: monday)
+    2.[T][✓] homework
     ____________________________________________________________
 
     ____________________________________________________________
