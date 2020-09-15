@@ -489,7 +489,7 @@ public class Duke {
      */
     private static int checkStatus(String status) {
         int done = 0;
-        if (status.equals("✓]")) {
+        if (status.equals("\u2713]")) {
             done = 1;
         }
         return done;

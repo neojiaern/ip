@@ -2,8 +2,8 @@ package duke.task;
 
 public class Task {
 
-    public static final String TICK = "[✓]";
-    public static final String CROSS = "[✗]";
+    public static final String TICK = "[\u2713]";
+    public static final String CROSS = "[\u2718]";
 
     protected String taskName;
     protected boolean isDone;
