@@ -5,6 +5,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -32,17 +33,123 @@ public class Duke {
             + System.lineSeparator() + INDENTATION + "  " + "Example: done 2");
     public static final String BYE_EXAMPLE = (INDENTATION + "bye: Exits the program."
             + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
+    public static final String fileSeparator = System.getProperty("file.separator");
+    public static final String dirPath = "." + fileSeparator + "data";
+    public static final String filePath =  dirPath + fileSeparator + "duke.txt";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        int count = 0;
+        int count;
         Scanner in = new Scanner(System.in);
 
+        File dukeFile = checkFile();
+        count = processFile(dukeFile, tasks);
 
         printGreetMsg();
         String userInput = in.nextLine();
         processUserInput(userInput, tasks, count, in);
+
+        saveTasksToTempFile(tasks);
+        compareFile(dukeFile);
         printByeMsg();
+    }
+
+    /**
+     * Checks if duke.txt is present, if not create a new one
+     *
+     * @return the file duke.txt.
+     */
+    public static File checkFile() {
+        File dataDir = new File(dirPath);
+        File dukeFile = new File(filePath);
+        boolean dirExists = dataDir.exists();
+        boolean fileExists = dukeFile.exists();
+        if (fileExists && dirExists) {
+            return dukeFile;
+        } else if (!dirExists && !fileExists) {
+            createDataDir(dataDir);
+            createDukeFile(dukeFile);
+        } else if (!dirExists) {
+            boolean dirCreated = dataDir.mkdir();
+            System.out.println(dirCreated);
+        } else { // file does not exist
+            createDukeFile(dukeFile);
+        }
+        return dukeFile;
+    }
+
+    /**
+     * Creates the data directory
+     *
+     * @param dataDir data directory.
+     */
+    public static void createDataDir(File dataDir) {
+        boolean isCreateDirSuccess = dataDir.mkdir();
+        if (isCreateDirSuccess) {
+            System.out.println(System.lineSeparator() + INDENTATION + "(Directory ./data created)");
+        } else {
+            System.out.println(System.lineSeparator() + INDENTATION + "(Directory ./data not created)");
+        }
+    }
+
+    /**
+     * Creates the file duke.txt
+     *
+     * @param dukeFile duke.txt file.
+     */
+    public static void createDukeFile(File dukeFile) {
+        try {
+            boolean isCreateFileSuccess = dukeFile.createNewFile();
+            if (isCreateFileSuccess) {
+                System.out.println(System.lineSeparator() + INDENTATION + "(File duke.txt created)");
+            } else {
+                System.out.println(System.lineSeparator() + INDENTATION + "(File duke.txt not created)");
+            }
+        } catch (IOException e) {
+            System.out.println(System.lineSeparator() + INDENTATION + "(File duke.txt could not be created)");
+        }
+    }
+
+    /**
+     * Processes the duke.txt file to save the tasks present in it to ArrayList
+     *
+     * @param dukeFile duke.txt file.
+     * @param tasks an ArrayList to store tasks.
+     * @return current number of tasks in the list.
+     */
+    public static int processFile(File dukeFile, ArrayList<Task> tasks) {
+        Scanner reader = null;
+        try {
+            reader = new Scanner(dukeFile);
+        } catch (FileNotFoundException e) {
+            System.out.println(System.lineSeparator() + INDENTATION + "(File duke.txt could not be found)");
+        }
+        while (reader.hasNextLine()) {
+            String data = reader.nextLine();
+            String[] dataParts = data.split(" \\| ");
+            switch (dataParts[0]) {
+            case "T":
+                Task todoTask = new Todo(dataParts[2]);
+                tasks.add(todoTask);
+                break;
+            case "D":
+                Task deadlineTask = new Deadline(dataParts[2], dataParts[3]);
+                tasks.add(deadlineTask);
+                break;
+            case "E":
+                Task eventTask = new Event(dataParts[2], dataParts[3]);
+                tasks.add(eventTask);
+                break;
+            default:
+                // ignore invalid task types
+                break;
+            }
+            if (dataParts[1].equals("1")) {
+                tasks.get(tasks.size()-1).markAsDone();
+            }
+        }
+        reader.close();
+        return tasks.size();
     }
 
     public static void printGreetMsg() {
@@ -271,6 +378,121 @@ public class Duke {
         default:
             break;
         }
+    }
+
+    /**
+     * Saves the current tasks in the list to a temporary file
+     *
+     * @param tasks an ArrayList to store tasks.
+     */
+    public static void saveTasksToTempFile(ArrayList<Task> tasks) {
+        FileWriter tempFile = null;
+        try {
+            tempFile = new FileWriter("data/temp.txt");
+        } catch (IOException e) {
+            System.out.println("Could not create temp.txt");
+        }
+        for(int i = 1; i <= tasks.size(); i++) {
+            String task = tasks.get(i-1).toString();
+            String[] taskParts = task.split("\\]\\[", 2);
+            String[] descriptionParts= taskParts[1].split(" ", 2);
+            String type = "";
+            String description = "";
+            int done = 0;
+            switch (taskParts[0]) {
+            case "[T":
+                type = "T";
+                description = descriptionParts[1];
+                break;
+            case "[D":
+                type = "D";
+                String[] dParts =descriptionParts[1].split(" \\(by: ");
+                description = dParts[0] + " | " + dParts[1].replace(")", "");
+                break;
+            case "[E":
+                type = "E";
+                String[] eParts =descriptionParts[1].split(" \\(at: ");
+                description = eParts[0] + " | " + eParts[1].replace(")", "");
+                break;
+            default:
+                break;
+            }
+            done = checkStatus(descriptionParts[0]);
+            String entry = type + " | " + done  + " | " + description + "\n";
+            try {
+                tempFile.write(entry);
+            } catch (IOException e) {
+                System.out.println("Could not write to temp.txt");
+            }
+        }
+        try {
+            tempFile.close();
+        } catch (IOException e) {
+            System.out.println("temp.txt could not be closed.");
+        }
+    }
+
+    /**
+     * Compares duke.txt and temp.txt to find differences
+     * If different, replace duke.txt with temp.txt to save changes made
+     * If same, remove temp.txt
+     *
+     * @param dukeFile duke.txt file.
+     * @throws IOException if files cannot be read.
+     */
+    private static void compareFile(File dukeFile) throws IOException {
+        BufferedReader dukeReader = new BufferedReader(new FileReader("data" + fileSeparator + "duke.txt"));
+        BufferedReader tempReader = new BufferedReader(new FileReader("data" + fileSeparator + "temp.txt"));
+        String dukeLine = dukeReader.readLine();
+        String tempLine = tempReader.readLine();
+        boolean isEqual = true;
+
+        while (dukeLine != null || tempLine != null) {
+            if(dukeLine == null || tempLine == null) {
+                isEqual = false;
+                break;
+            }  else if (!dukeLine.equalsIgnoreCase(tempLine)) {
+                isEqual = false;
+                break;
+            }
+
+            dukeLine = dukeReader.readLine();
+            tempLine = tempReader.readLine();
+        }
+        dukeReader.close();
+        tempReader.close();
+
+        File tempFile = new File(dirPath + fileSeparator + "temp.txt");
+        if (!isEqual) {
+            boolean isDeleted = dukeFile.delete();
+            boolean isRenamed = tempFile.renameTo(dukeFile);
+            if (isRenamed && isDeleted) {
+                System.out.println(System.lineSeparator() + INDENTATION + "(Changes have been saved to duke.txt)");
+            } else {
+                System.out.println(System.lineSeparator() + INDENTATION + "(Changes have not been saved to duke.txt)");
+            }
+        } else {
+            boolean isDeleted = tempFile.delete();
+            if (isDeleted) {
+                System.out.println(System.lineSeparator() + INDENTATION + "(No changes have been made to duke.txt)");
+            } else {
+                System.out.println(System.lineSeparator() + INDENTATION + "(Failed to remove temp.txt)");
+            }
+        }
+    }
+
+    /**
+     * Checks if status of task is completed to assign it the correct icon
+     *
+     * @param status whether task is done or not done.
+     * @return status of task.
+     */
+    private static int checkStatus(String status) {
+        int done = 0;
+        if (status.equals("✓]")) {
+            done = 1;
+        }
+        return done;
     }
 
     public static void printByeMsg() {
