@@ -180,50 +180,98 @@ public class Duke {
             String command = inputParts[0].toLowerCase();
             switch (command){
             case "list":
-                if (inputParts.length > 1) {
-                    System.out.println(LINE);
-                    System.out.println(INDENTATION + "Oh no! There should be no description after list.");
-                    System.out.println(LIST_EXAMPLE);
-                    System.out.println(LINE + "\n");
-                } else {
-                    listTasks(tasks, count);
-                }
+                processListCmd(tasks, count, inputParts);
                 break;
             case "done":
-                try {
-                    doneTask(inputParts[1], tasks);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(LINE);
-                    System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
-                    System.out.println(DONE_EXAMPLE);
-                    System.out.println(LINE + "\n");
-                }
+                processDoneCmd(tasks, inputParts[1]);
                 break;
             case "todo":
             case "deadline":
             case"event":
-                try {
-                    count = addTask(inputParts[0], inputParts[1], tasks, count);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    printEmptyDescriptionMessage(command);
-                    System.out.println(LINE + "\n");
-                }
+                count = processAddCmd(tasks, count, inputParts, command);
                 break;
             case "delete":
-                try {
-                    count = deleteTask(inputParts[1], tasks, count);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(LINE);
-                    System.out.println(INDENTATION + "Oh no! The index for a task to delete cannot be missing.");
-                    System.out.println(DELETE_EXAMPLE);
-                    System.out.println(LINE + "\n");
-                }
+                count = processDelCmd(tasks, count, inputParts);
                 break;
             default:
                 printExampleInput();
                 break;
             }
             userInput = in.nextLine();
+        }
+    }
+
+    /**
+     * Process delete command
+     *
+     * @param tasks an ArrayList to store tasks.
+     * @param count current number of tasks in list.
+     * @param inputParts String array containing delete command and index of task.
+     * @return
+     */
+    public static int processDelCmd(ArrayList<Task> tasks, int count, String[] inputParts) {
+        try {
+            count = deleteTask(inputParts[1], tasks, count);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Oh no! The index for a task to delete cannot be missing.");
+            System.out.println(DELETE_EXAMPLE);
+            System.out.println(LINE + "\n");
+        }
+        return count;
+    }
+
+    /**
+     * Process adding of todo, deadline and event tasks
+     *
+     * @param tasks an ArrayList to store tasks.
+     * @param count current number of tasks in list.
+     * @param inputParts String array containing type of task and it's description.
+     * @param command contains either "todo"/"deadline"/"event".
+     * @return the number of tasks in list after addition of new task.
+     */
+    public static int processAddCmd(ArrayList<Task> tasks, int count, String[] inputParts, String command) {
+        try {
+            count = addTask(inputParts[0], inputParts[1], tasks, count);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            printEmptyDescriptionMessage(command);
+            System.out.println(LINE + "\n");
+        }
+        return count;
+    }
+
+    /**
+     * Process done command
+     *
+     * @param tasks an ArrayList to store tasks.
+     * @param inputPart String array containing done command and index of task.
+     */
+    public static void processDoneCmd(ArrayList<Task> tasks, String inputPart) {
+        try {
+            doneTask(inputPart, tasks);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
+            System.out.println(DONE_EXAMPLE);
+            System.out.println(LINE + "\n");
+        }
+    }
+
+    /**
+     * Process list command
+     *
+     * @param tasks an ArrayList to store tasks.
+     * @param count current number of tasks in list.
+     * @param inputParts String array containing list command.
+     */
+    public static void processListCmd(ArrayList<Task> tasks, int count, String[] inputParts) {
+        if (inputParts.length > 1) {
+            System.out.println(LINE);
+            System.out.println(INDENTATION + "Oh no! There should be no description after list.");
+            System.out.println(LIST_EXAMPLE);
+            System.out.println(LINE + "\n");
+        } else {
+            listTasks(tasks, count);
         }
     }
 
