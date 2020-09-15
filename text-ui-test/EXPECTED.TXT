@@ -1,3 +1,7 @@
+
+    (Directory ./data created)
+
+    (File duke.txt created)
  ____        _        
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
@@ -15,19 +19,19 @@
 
     ____________________________________________________________
     Got it. I've added this task:
-      [D][✗] assignment (by: monday)
+      [D][✘] assignment (by: monday)
     Now you have 1 task(s) in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [E][✗] project meeting (at: tuesday 4pm)
+      [E][✘] project meeting (at: tuesday 4pm)
     Now you have 2 task(s) in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [T][✗] homework
+      [T][✘] homework
     Now you have 3 task(s) in the list.
     ____________________________________________________________
 
@@ -60,9 +64,9 @@
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1.[D][✗] assignment (by: monday)
-    2.[E][✗] project meeting (at: tuesday 4pm)
-    3.[T][✗] homework
+    1.[D][✘] assignment (by: monday)
+    2.[E][✘] project meeting (at: tuesday 4pm)
+    3.[T][✘] homework
     ____________________________________________________________
 
     ____________________________________________________________
@@ -121,7 +125,7 @@
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1.[D][✗] assignment (by: monday)
+    1.[D][✘] assignment (by: monday)
     2.[E][✓] project meeting (at: tuesday 4pm)
     3.[T][✓] homework
     ____________________________________________________________
@@ -155,10 +159,12 @@
 
     ____________________________________________________________
     Here are the tasks in your list:
-    1.[D][✗] assignment (by: monday)
+    1.[D][✘] assignment (by: monday)
     2.[T][✓] homework
     ____________________________________________________________
 
+
+    (Changes have been saved to duke.txt)
     ____________________________________________________________
     Bye. Hope to see you again soon!
     ____________________________________________________________

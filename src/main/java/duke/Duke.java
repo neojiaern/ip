@@ -183,7 +183,7 @@ public class Duke {
                 processListCmd(tasks, count, inputParts);
                 break;
             case "done":
-                processDoneCmd(tasks, inputParts[1]);
+                processDoneCmd(tasks, inputParts);
                 break;
             case "todo":
             case "deadline":
@@ -244,11 +244,11 @@ public class Duke {
      * Process done command
      *
      * @param tasks an ArrayList to store tasks.
-     * @param inputPart String array containing done command and index of task.
+     * @param inputParts String array containing done command and index of task.
      */
-    public static void processDoneCmd(ArrayList<Task> tasks, String inputPart) {
+    public static void processDoneCmd(ArrayList<Task> tasks, String[] inputParts) {
         try {
-            doneTask(inputPart, tasks);
+            doneTask(inputParts[1], tasks);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
