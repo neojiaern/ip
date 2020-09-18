@@ -215,7 +215,8 @@ public class Duke {
      */
     public static void processDelCmd(ArrayList<Task> tasks, String[] inputParts) {
         try {
-            deleteTask(inputParts[1], tasks);
+            String deleteDescription = inputParts[1];
+            deleteTask(deleteDescription, tasks);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Oh no! The index for a task to delete cannot be missing.");
@@ -234,7 +235,9 @@ public class Duke {
      */
     public static void processAddCmd(ArrayList<Task> tasks, String[] inputParts, String command) {
         try {
-            addTask(inputParts[0], inputParts[1], tasks);
+            String taskType = inputParts[0];
+            String taskDescription = inputParts[1];
+            addTask(taskType, taskDescription, tasks);
         } catch (ArrayIndexOutOfBoundsException e) {
             printEmptyDescriptionMessage(command);
             System.out.println(LINE + "\n");
@@ -249,7 +252,8 @@ public class Duke {
      */
     public static void processDoneCmd(ArrayList<Task> tasks, String[] inputParts) {
         try {
-            doneTask(inputParts[1], tasks);
+            String doneDescription = inputParts[1];
+            doneTask(doneDescription, tasks);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
@@ -279,22 +283,22 @@ public class Duke {
      * Adds task user specified and prints output msg
      *
      * @param taskType specifies type of task.
-     * @param description of task.
+     * @param taskDescription description of task.
      * @param tasks an ArrayList to store tasks.
      */
-    public static void addTask(String taskType, String description, ArrayList<Task> tasks) {
+    public static void addTask(String taskType, String taskDescription, ArrayList<Task> tasks) {
         switch (taskType) {
         case TODO_COMMAND:
-            Task todoTask = new Todo(description);
+            Task todoTask = new Todo(taskDescription);
             tasks.add(todoTask);
             break;
         case DEADLINE_COMMAND:
-            String[] deadlineParts = description.split(" /by ");
+            String[] deadlineParts = taskDescription.split(" /by ");
             Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
             tasks.add(deadlineTask);
             break;
         case EVENT_COMMAND:
-            String[] eventParts = description.split(" /at ");
+            String[] eventParts = taskDescription.split(" /at ");
             Task eventTask = new Event(eventParts[0], eventParts[1]);
             tasks.add(eventTask);
             break;
@@ -309,9 +313,9 @@ public class Duke {
         System.out.println(LINE + "\n");
     }
 
-    public static void deleteTask(String description, ArrayList<Task> tasks) {
+    public static void deleteTask(String deleteDescription, ArrayList<Task> tasks) {
         try {
-            int deleteIndex = Integer.parseInt(description);
+            int deleteIndex = Integer.parseInt(deleteDescription);
             String message = INDENTATION + " " + tasks.get(deleteIndex-1).toString();
             tasks.remove(deleteIndex-1);
             System.out.println(LINE);
@@ -320,7 +324,7 @@ public class Duke {
             System.out.println(INDENTATION + "Now you have " + tasks.size() + " task(s) in the list.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println(LINE);
-            if (description == null) {
+            if (deleteDescription == null) {
                 System.out.println(INDENTATION + "Oh no! The index for a task to delete cannot be missing.");
             } else {
                 System.out.println(INDENTATION + "Oh no! This task is not found.");
@@ -359,19 +363,19 @@ public class Duke {
      * Prints output msg
      * Handles error when user input is incorrect
      *
-     * @param description contains index of completed task in list.
+     * @param doneDescription contains index of completed task in list.
      * @param tasks an ArrayList to store tasks.
      */
-    public static void doneTask(String description, ArrayList<Task> tasks) {
+    public static void doneTask(String doneDescription, ArrayList<Task> tasks) {
         try {
-            int doneIndex = Integer.parseInt(description);
+            int doneIndex = Integer.parseInt(doneDescription);
             tasks.get(doneIndex-1).markAsDone();
             System.out.println(LINE);
             System.out.println(INDENTATION + "Nice! I've marked this task as done:");
             System.out.println(INDENTATION + "  " + tasks.get(doneIndex-1));
         } catch (IndexOutOfBoundsException e) {
             System.out.println(LINE);
-            if (description == null) {
+            if (doneDescription == null) {
                 System.out.println(INDENTATION + "Oh no! The index for a completed task cannot be missing.");
             } else {
                 System.out.println(INDENTATION + "Oh no! This task is not found.");
