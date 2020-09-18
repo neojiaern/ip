@@ -14,6 +14,13 @@ public class Duke {
     public static final String INDENTATION = "    ";
     public static final String LINE = INDENTATION
             + "____________________________________________________________";
+    public static final String TODO_COMMAND = "todo";
+    public static final String DEADLINE_COMMAND = "deadline";
+    public static final String EVENT_COMMAND =  "event";
+    public static final String LIST_COMMAND = "list";
+    public static final String DONE_COMMAND = "done";
+    public static final String DELETE_COMMAND = "delete";
+    public static final String BYE_COMMAND = "bye";
     public static final String LIST_EXAMPLE = (INDENTATION + "list: Display all tasks entered by user."
             + System.lineSeparator() + INDENTATION + "  " + "Example: list");
     public static final String TODO_EXAMPLE = (INDENTATION + "todo: Adds a todo task."
@@ -39,15 +46,14 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
-        int count;
         Scanner in = new Scanner(System.in);
 
         File dukeFile = checkFile();
-        count = processFile(dukeFile, tasks);
+        processFile(dukeFile, tasks);
 
         printGreetMsg();
         String userInput = in.nextLine();
-        processUserInput(userInput, tasks, count, in);
+        processUserInput(userInput, tasks, in);
 
         saveTasksToTempFile(tasks);
         compareFile(dukeFile);
@@ -117,7 +123,7 @@ public class Duke {
      * @param tasks an ArrayList to store tasks.
      * @return current number of tasks in the list.
      */
-    public static int processFile(File dukeFile, ArrayList<Task> tasks) {
+    public static void processFile(File dukeFile, ArrayList<Task> tasks) {
         Scanner reader = null;
         try {
             reader = new Scanner(dukeFile);
@@ -149,7 +155,6 @@ public class Duke {
             }
         }
         reader.close();
-        return tasks.size();
     }
 
     public static void printGreetMsg() {
@@ -171,26 +176,25 @@ public class Duke {
      *
      * @param userInput user's input.
      * @param tasks an ArrayList to store tasks.
-     * @param count keep a counter for number of tasks currently in list.
      * @param in scanner to take in user input.
      */
-    public static void processUserInput(String userInput, ArrayList<Task> tasks, int count, Scanner in) {
-        while (!userInput.equalsIgnoreCase("bye")) {
+    public static void processUserInput(String userInput, ArrayList<Task> tasks, Scanner in) {
+        while (!userInput.equalsIgnoreCase(BYE_COMMAND)) {
             String[] inputParts = userInput.split(" ", 2);
             String command = inputParts[0].toLowerCase();
             switch (command){
-            case "list":
+            case LIST_COMMAND:
                 processListCmd(tasks, inputParts);
                 break;
-            case "done":
+            case DONE_COMMAND:
                 processDoneCmd(tasks, inputParts);
                 break;
-            case "todo":
-            case "deadline":
-            case"event":
+            case TODO_COMMAND:
+            case DEADLINE_COMMAND:
+            case EVENT_COMMAND:
                 processAddCmd(tasks, inputParts, command);
                 break;
-            case "delete":
+            case DELETE_COMMAND:
                 processDelCmd(tasks, inputParts);
                 break;
             default:
@@ -279,16 +283,16 @@ public class Duke {
      */
     public static void addTask(String taskType, String description, ArrayList<Task> tasks) {
         switch (taskType) {
-        case "todo":
+        case TODO_COMMAND:
             Task todoTask = new Todo(description);
             tasks.add(todoTask);
             break;
-        case "deadline":
+        case DEADLINE_COMMAND:
             String[] deadlineParts = description.split(" /by ");
             Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
             tasks.add(deadlineTask);
             break;
-        case "event":
+        case EVENT_COMMAND:
             String[] eventParts = description.split(" /at ");
             Task eventTask = new Event(eventParts[0], eventParts[1]);
             tasks.add(eventTask);
@@ -402,13 +406,13 @@ public class Duke {
         System.out.println(LINE);
         System.out.println(INDENTATION + "Oh no! The description of " + taskType + " cannot be empty.");
         switch (taskType) {
-        case "todo":
+        case TODO_COMMAND:
             System.out.println(TODO_EXAMPLE);
             break;
-        case "deadline":
+        case DEADLINE_COMMAND:
             System.out.println(DEADLINE_EXAMPLE);
             break;
-        case "event":
+        case EVENT_COMMAND:
             System.out.println(EVENT_EXAMPLE);
             break;
         default:
