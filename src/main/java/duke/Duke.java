@@ -180,7 +180,7 @@ public class Duke {
             String command = inputParts[0].toLowerCase();
             switch (command){
             case "list":
-                processListCmd(tasks, count, inputParts);
+                processListCmd(tasks, inputParts);
                 break;
             case "done":
                 processDoneCmd(tasks, inputParts);
@@ -188,10 +188,10 @@ public class Duke {
             case "todo":
             case "deadline":
             case"event":
-                count = processAddCmd(tasks, count, inputParts, command);
+                processAddCmd(tasks, inputParts, command);
                 break;
             case "delete":
-                count = processDelCmd(tasks, count, inputParts);
+                processDelCmd(tasks, inputParts);
                 break;
             default:
                 printExampleInput();
@@ -205,39 +205,35 @@ public class Duke {
      * Process delete command
      *
      * @param tasks an ArrayList to store tasks.
-     * @param count current number of tasks in list.
      * @param inputParts String array containing delete command and index of task.
      * @return
      */
-    public static int processDelCmd(ArrayList<Task> tasks, int count, String[] inputParts) {
+    public static void processDelCmd(ArrayList<Task> tasks, String[] inputParts) {
         try {
-            count = deleteTask(inputParts[1], tasks, count);
+            deleteTask(inputParts[1], tasks);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Oh no! The index for a task to delete cannot be missing.");
             System.out.println(DELETE_EXAMPLE);
             System.out.println(LINE + "\n");
         }
-        return count;
     }
 
     /**
      * Process adding of todo, deadline and event tasks
      *
      * @param tasks an ArrayList to store tasks.
-     * @param count current number of tasks in list.
      * @param inputParts String array containing type of task and it's description.
      * @param command contains either "todo"/"deadline"/"event".
      * @return the number of tasks in list after addition of new task.
      */
-    public static int processAddCmd(ArrayList<Task> tasks, int count, String[] inputParts, String command) {
+    public static void processAddCmd(ArrayList<Task> tasks, String[] inputParts, String command) {
         try {
-            count = addTask(inputParts[0], inputParts[1], tasks, count);
+            addTask(inputParts[0], inputParts[1], tasks);
         } catch (ArrayIndexOutOfBoundsException e) {
             printEmptyDescriptionMessage(command);
             System.out.println(LINE + "\n");
         }
-        return count;
     }
 
     /**
@@ -261,17 +257,16 @@ public class Duke {
      * Process list command
      *
      * @param tasks an ArrayList to store tasks.
-     * @param count current number of tasks in list.
      * @param inputParts String array containing list command.
      */
-    public static void processListCmd(ArrayList<Task> tasks, int count, String[] inputParts) {
+    public static void processListCmd(ArrayList<Task> tasks, String[] inputParts) {
         if (inputParts.length > 1) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Oh no! There should be no description after list.");
             System.out.println(LIST_EXAMPLE);
             System.out.println(LINE + "\n");
         } else {
-            listTasks(tasks, count);
+            listTasks(tasks);
         }
     }
 
@@ -281,9 +276,8 @@ public class Duke {
      * @param taskType specifies type of task.
      * @param description of task.
      * @param tasks an ArrayList to store tasks.
-     * @param count keep a counter for number of tasks currently in list.
      */
-    public static int addTask(String taskType, String description, ArrayList<Task> tasks, int count) {
+    public static void addTask(String taskType, String description, ArrayList<Task> tasks) {
         switch (taskType) {
         case "todo":
             Task todoTask = new Todo(description);
@@ -303,26 +297,22 @@ public class Duke {
             break;
         }
 
-        count++;
         System.out.println(LINE);
         System.out.println(INDENTATION + "Got it. I've added this task:");
-        System.out.println(INDENTATION + "  " + tasks.get(count-1));
-        System.out.println(INDENTATION + "Now you have " + count + " task(s) in the list.");
+        System.out.println(INDENTATION + "  " + tasks.get(tasks.size()-1));
+        System.out.println(INDENTATION + "Now you have " + tasks.size() + " task(s) in the list.");
         System.out.println(LINE + "\n");
-
-        return count;
     }
 
-    public static int deleteTask(String description, ArrayList<Task> tasks, int count) {
+    public static void deleteTask(String description, ArrayList<Task> tasks) {
         try {
             int deleteIndex = Integer.parseInt(description);
             String message = INDENTATION + " " + tasks.get(deleteIndex-1).toString();
             tasks.remove(deleteIndex-1);
-            count--;
             System.out.println(LINE);
             System.out.println(INDENTATION + "Noted. I've removed this task:");
             System.out.println(message);
-            System.out.println(INDENTATION + "Now you have " + count + " task(s) in the list.");
+            System.out.println(INDENTATION + "Now you have " + tasks.size() + " task(s) in the list.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println(LINE);
             if (description == null) {
@@ -337,24 +327,22 @@ public class Duke {
             System.out.println(DELETE_EXAMPLE);
         }
         System.out.println(LINE + "\n");
-        return count;
     }
 
     /**
      * prints tasks present in list
      *
      * @param tasks an ArrayList to store tasks.
-     * @param count keep a counter for number of tasks currently in list.
      */
-    public static void listTasks(ArrayList<Task> tasks, int count) {
-        if (count == 0) {
+    public static void listTasks(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
             System.out.println(LINE);
             System.out.println(INDENTATION + "There is currently no task.");
             System.out.println(LINE + "\n");
         } else {
             System.out.println(LINE);
             System.out.println(INDENTATION + "Here are the tasks in your list:");
-            for (int i = 1; i <= count; i++) {
+            for (int i = 1; i <= tasks.size(); i++) {
                 System.out.println(INDENTATION + i + "." + tasks.get(i-1));
             }
             System.out.println(LINE + "\n");
