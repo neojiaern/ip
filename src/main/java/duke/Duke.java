@@ -43,6 +43,7 @@ public class Duke {
     public static final String fileSeparator = System.getProperty("file.separator");
     public static final String dirPath = "." + fileSeparator + "data";
     public static final String filePath =  dirPath + fileSeparator + "duke.txt";
+    public static final String TICK = "\u2713";
 
     public static void main(String[] args) throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -439,17 +440,17 @@ public class Duke {
             String type = "";
             String description = "";
             int done = 0;
-            switch (taskParts[0]) {
-            case "[T":
+            switch (taskParts[0].replace("[", "")) {
+            case "T":
                 type = "T";
                 description = descriptionParts[1];
                 break;
-            case "[D":
+            case "D":
                 type = "D";
                 String[] dParts =descriptionParts[1].split(" \\(by: ");
                 description = dParts[0] + " | " + dParts[1].replace(")", "");
                 break;
-            case "[E":
+            case "E":
                 type = "E";
                 String[] eParts =descriptionParts[1].split(" \\(at: ");
                 description = eParts[0] + " | " + eParts[1].replace(")", "");
@@ -529,7 +530,8 @@ public class Duke {
      */
     private static int checkStatus(String status) {
         int done = 0;
-        if (status.equals("\u2713]")) {
+        status = status.replace("]", "");
+        if (status.equals(TICK)) {
             done = 1;
         }
         return done;
