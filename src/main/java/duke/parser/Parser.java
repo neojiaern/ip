@@ -34,7 +34,7 @@ public class Parser {
     /**
      * Calls the respective methods for the different commands: list, done, and delete task
      *
-     * @param userInput
+     * @param userInput user's input.
      * @return Command based on its type.
      */
     public Command parse(String userInput) {

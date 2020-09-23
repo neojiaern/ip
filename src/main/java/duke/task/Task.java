@@ -7,6 +7,7 @@ public class Task {
 
     protected String taskName;
     protected boolean isDone;
+    protected boolean hasDueDate;
 
     public Task(String taskName) {
         this.taskName = taskName;
