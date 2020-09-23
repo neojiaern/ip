@@ -149,10 +149,27 @@ public class TaskList {
         return new CommandResult(result);
     }
 
+    public CommandResult findTaskByKeyword(String keyword) {
+        String result = "";
+        int count = 1;
+        result = INDENTATION + "Here are the matching task(s) in your list:";
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task task = tasks.get(i - 1);
+            if (task.taskName.contains(keyword)) {
+                result += "\n" + INDENTATION + count + "." + tasks.get(i - 1).toString();
+                count++;
+            }
+        }
+        if (count == 1) {
+            result = INDENTATION + "There are no task(s) which match the given keyword.";
+        }
+        return new CommandResult(result);
+    }
+
     public CommandResult findDueTasks(LocalDate date) {
         String result = "";
         int count = 1;
-        result = "Here are the tasks due:";
+        result = INDENTATION + "Here are the tasks due:";
         for (int i = 1; i <= tasks.size(); i++) {
             Task task = tasks.get(i-1);
             if (task.hasDueDate && task.date.equals(date)) {
@@ -160,7 +177,7 @@ public class TaskList {
                 count++;
             }
         }
-        if (result.equals(INDENTATION + "Here are the task(s) due:")) {
+        if (count == 1) {
             result = INDENTATION + "There are no deadlines or events due on that date.";
         }
         return new CommandResult(result);

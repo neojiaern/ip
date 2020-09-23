@@ -5,6 +5,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.DueCommand;
 import duke.command.IncorrectCommand;
 import duke.command.ListCommand;
@@ -34,6 +35,9 @@ public class Parser {
     public static final String DONE_EXAMPLE = (INDENTATION + "done: Marks a completed task as done."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: INDEX_OF_COMPLETED_TASK"
             + System.lineSeparator() + INDENTATION + "  " + "Example: done 2");
+    public static final String FIND_EXAMPLE = (INDENTATION + "find: finds tasks containing related keyword."
+            + System.lineSeparator() + INDENTATION + "  " + "Parameters: KEYWORD"
+            + System.lineSeparator() + INDENTATION + "  " + "Example: find book");
     public static final String DUE_EXAMPLE = (INDENTATION + "due: Lists deadlines and events due."
             + System.lineSeparator() + INDENTATION + " " + "Parameters: DUE_DATE(YYYY-MM-DD)"
             + System.lineSeparator() + INDENTATION + " " + "Example: due 2020-10-02");
@@ -60,6 +64,8 @@ public class Parser {
             return processDoneCmd(inputParts);
         case DeleteCommand.COMMAND_WORD:
             return processDelCmd(inputParts);
+        case FindCommand.COMMAND_WORD:
+            return processFindCmd(inputParts);
         case DueCommand.COMMAND_WORD:
             return processDueCmd(inputParts);
         case ByeCommand.COMMAND_WORD:
@@ -69,8 +75,8 @@ public class Parser {
                     + "please try again.\n" + LIST_EXAMPLE + System.lineSeparator() + TODO_EXAMPLE
                     + System.lineSeparator() + DEADLINE_EXAMPLE + System.lineSeparator()
                     + EVENT_EXAMPLE + System.lineSeparator() + DELETE_EXAMPLE
-                    + System.lineSeparator() + DONE_EXAMPLE + System.lineSeparator() + DUE_EXAMPLE
-                    + System.lineSeparator() + BYE_EXAMPLE);
+                    + System.lineSeparator() + DONE_EXAMPLE + System.lineSeparator() + FIND_EXAMPLE
+                    + System.lineSeparator() + DUE_EXAMPLE + System.lineSeparator() + BYE_EXAMPLE);
         }
     }
 
@@ -164,6 +170,16 @@ public class Parser {
         }
     }
 
+    public Command processFindCmd(String[] inputParts) {
+        try {
+            String keyword = inputParts[1];
+            return new FindCommand(keyword);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String message = INDENTATION + "Oh no! The keyword for find cannot be missing.\n"
+                    + FIND_EXAMPLE;
+            return new IncorrectCommand(message);
+        }
+    }
     public Command processDueCmd(String[] inputParts) {
         try {
             String dueDescription = inputParts[1];
