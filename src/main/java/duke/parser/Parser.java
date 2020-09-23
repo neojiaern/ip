@@ -6,8 +6,12 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.FindCommand;
+import duke.command.DueCommand;
 import duke.command.IncorrectCommand;
 import duke.command.ListCommand;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
 
@@ -18,11 +22,13 @@ public class Parser {
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION"
             + System.lineSeparator() + INDENTATION + "  " + "Example: todo study");
     public static final String DEADLINE_EXAMPLE = (INDENTATION + "deadline: Adds a deadline task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /by TIME"
-            + System.lineSeparator() + INDENTATION + "  " + "Example: deadline CS2113T assignment /by Monday");
+            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /by "
+            + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
+            + "Example: deadline CS2113T assignment /by 2020-10-02 23:59");
     public static final String EVENT_EXAMPLE = (INDENTATION + "event: Adds an event task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /at TIME")
-            + System.lineSeparator() + INDENTATION + "  " + "Example: event project meeting /at Tuesday 2pm";
+            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /at "
+            + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
+            + "Example: event project meeting /at 2020-10-02 17:00");
     public static final String DELETE_EXAMPLE = (INDENTATION + "delete: Deletes a task from the list."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: INDEX_OF_TASK_TO_DELETE"
             + System.lineSeparator() + INDENTATION + "  " + "Example: delete 2");
@@ -32,13 +38,16 @@ public class Parser {
     public static final String FIND_EXAMPLE = (INDENTATION + "find: finds tasks containing related keyword."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: KEYWORD"
             + System.lineSeparator() + INDENTATION + "  " + "Example: find book");
+    public static final String DUE_EXAMPLE = (INDENTATION + "due: Lists deadlines and events due."
+            + System.lineSeparator() + INDENTATION + " " + "Parameters: DUE_DATE(YYYY-MM-DD)"
+            + System.lineSeparator() + INDENTATION + " " + "Example: due 2020-10-02");
     public static final String BYE_EXAMPLE = (INDENTATION + "bye: Exits the program."
             + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
     /**
      * Calls the respective methods for the different commands: list, done, and delete task
      *
-     * @param userInput
+     * @param userInput user's input.
      * @return Command based on its type.
      */
     public Command parse(String userInput) {
@@ -57,6 +66,8 @@ public class Parser {
             return processDelCmd(inputParts);
         case FindCommand.COMMAND_WORD:
             return processFindCmd(inputParts);
+        case DueCommand.COMMAND_WORD:
+            return processDueCmd(inputParts);
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         default:
@@ -64,7 +75,8 @@ public class Parser {
                     + "please try again.\n" + LIST_EXAMPLE + System.lineSeparator() + TODO_EXAMPLE
                     + System.lineSeparator() + DEADLINE_EXAMPLE + System.lineSeparator()
                     + EVENT_EXAMPLE + System.lineSeparator() + DELETE_EXAMPLE
-                    + System.lineSeparator() + DONE_EXAMPLE + System.lineSeparator() + BYE_EXAMPLE);
+                    + System.lineSeparator() + DONE_EXAMPLE + System.lineSeparator() + FIND_EXAMPLE
+                    + System.lineSeparator() + DUE_EXAMPLE + System.lineSeparator() + BYE_EXAMPLE);
         }
     }
 
@@ -165,6 +177,21 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             String message = INDENTATION + "Oh no! The keyword for find cannot be missing.\n"
                     + FIND_EXAMPLE;
+            return new IncorrectCommand(message);
+        }
+    }
+    public Command processDueCmd(String[] inputParts) {
+        try {
+            String dueDescription = inputParts[1];
+            LocalDate dueDate = LocalDate.parse(dueDescription);
+            return new DueCommand(dueDate);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String message = INDENTATION + "Oh no! The due date cannot be missing.\n"
+                    + DUE_EXAMPLE;
+            return new IncorrectCommand(message);
+        } catch (DateTimeParseException e) {
+            String message = INDENTATION + "Oh no! The due date specified is in a wrong format.\n"
+                    + DUE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
