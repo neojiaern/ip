@@ -1,7 +1,4 @@
-
-    (Directory ./data created)
-
-    (File duke.txt created)
+    (No previously loaded task from duke.txt)
  ____        _        
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
@@ -93,7 +90,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a completed task cannot be missing.
+    Oh no! The index for a task cannot be missing.
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
@@ -101,13 +98,10 @@
 
     ____________________________________________________________
     Oh no! This task is not found.
-    done: Marks a completed task as done.
-      Parameters: INDEX_OF_COMPLETED_TASK
-      Example: done 2
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a completed task must be an integer.
+    Oh no! The index for a task to delete must be an integer.
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
@@ -131,7 +125,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a task to delete cannot be missing.
+    Oh no! The index for a task cannot be missing.
     delete: Deletes a task from the list.
       Parameters: INDEX_OF_TASK_TO_DELETE
       Example: delete 2
@@ -139,9 +133,6 @@
 
     ____________________________________________________________
     Oh no! This task is not found.
-    delete: Deletes a task from the list.
-      Parameters: INDEX_OF_TASK_TO_DELETE
-      Example: delete 2
     ____________________________________________________________
 
     ____________________________________________________________
@@ -163,8 +154,9 @@
     2.[T][✓] homework
     ____________________________________________________________
 
-
-    (Changes have been saved to duke.txt)
     ____________________________________________________________
     Bye. Hope to see you again soon!
     ____________________________________________________________
+
+
+    (Changes have been saved to duke.txt)
