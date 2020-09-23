@@ -125,7 +125,12 @@ public class Storage {
             throw new DukeFileException(System.lineSeparator() + INDENTATION + "(Could not create temp.txt)");
         }
         for(int i = 1; i <= tasks.getCount(); i++) {
-            String task = tasks.getTask(i-1).toString();
+            String task = "";
+            if (tasks.getTask(i-1).hasDueDate) {
+                task = tasks.getTask(i - 1).printToFile();
+            } else {
+                task = tasks.getTask(i - 1).toString();
+            }
             String[] taskParts = task.split("\\]\\[", 2);
             String[] descriptionParts = taskParts[1].split(" ", 2);
             String type = "";

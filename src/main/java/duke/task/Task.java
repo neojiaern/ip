@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public class Task {
 
     public static final String TICK = "[\u2713]";
@@ -7,6 +9,8 @@ public class Task {
 
     protected String taskName;
     protected boolean isDone;
+    public boolean hasDueDate;
+    protected LocalDate date;
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -19,6 +23,10 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    public String printToFile() {
+        return null;
     }
 
     @Override
