@@ -141,7 +141,7 @@ public class TaskList {
         if (tasks.size() == 0) {
             result = INDENTATION + "There is currently no task.";
         } else {
-            result = INDENTATION + "Here are the tasks in your list:";
+            result = INDENTATION + "Here are the task(s) in your list:";
             for (int i = 1; i <= tasks.size(); i++) {
                 result += "\n" + INDENTATION + i + "." + tasks.get(i-1).toString();
             }
@@ -160,7 +160,7 @@ public class TaskList {
                 count++;
             }
         }
-        if (result.equals(INDENTATION + "Here are the tasks due:")) {
+        if (result.equals(INDENTATION + "Here are the task(s) due:")) {
             result = INDENTATION + "There are no deadlines or events due on that date.";
         }
         return new CommandResult(result);

@@ -9,7 +9,7 @@ public class Task {
 
     protected String taskName;
     protected boolean isDone;
-    protected boolean hasDueDate;
+    public boolean hasDueDate;
     protected LocalDate date;
 
     public Task(String taskName) {
@@ -23,6 +23,10 @@ public class Task {
 
     public void markAsDone() {
         isDone = true;
+    }
+
+    public String printToFile() {
+        return null;
     }
 
     @Override

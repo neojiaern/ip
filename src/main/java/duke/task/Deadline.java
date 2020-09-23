@@ -23,6 +23,10 @@ public class Deadline extends Task {
         time = LocalTime.parse(dateTime[1]);
     }
 
+    public String printToFile() {
+        return "[D]" + super.toString() + " (by: " + date + " " + time + ")";
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
