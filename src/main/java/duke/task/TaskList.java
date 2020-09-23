@@ -13,14 +13,6 @@ import java.util.ArrayList;
 public class TaskList {
 
     public static final String INDENTATION = "    ";
-    public static final String DEADLINE_EXAMPLE = (INDENTATION + "deadline: Adds a deadline task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /by "
-            + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
-            + "Example: deadline CS2113T assignment /by 2020-10-02 23:59");
-    public static final String EVENT_EXAMPLE = (INDENTATION + "event: Adds an event task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /at "
-            + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
-            + "Example: event project meeting /at 2020-10-02 17:00");
 
     protected ArrayList<Task> tasks;
 
@@ -60,11 +52,11 @@ public class TaskList {
                 tasks.add(deadlineTask);
             } catch (ArrayIndexOutOfBoundsException e) {
                 String message = INDENTATION + "Oh no! /by description is missing "
-                        + "or incomplete from deadline.\n" + DEADLINE_EXAMPLE;
+                        + "or incomplete from deadline.\n" + AddCommand.DEADLINE_EXAMPLE;
                 return new CommandResult(message);
             } catch (DateTimeParseException e) {
                 String message = INDENTATION + "Oh no! The date or time specified is in a wrong format.\n"
-                        + DEADLINE_EXAMPLE;
+                        + AddCommand.DEADLINE_EXAMPLE;
                 return new CommandResult(message);
             }
             break;
@@ -75,11 +67,11 @@ public class TaskList {
                 tasks.add(eventTask);
             } catch (ArrayIndexOutOfBoundsException e) {
                 String message = INDENTATION + "Oh no! /at description is missing "
-                        + "or incomplete from event.\n" + EVENT_EXAMPLE;
+                        + "or incomplete from event.\n" + AddCommand.EVENT_EXAMPLE;
                 return new CommandResult(message);
             } catch (DateTimeParseException e) {
                 String message = INDENTATION + "Oh no! The date or time specified is in a wrong format.\n"
-                        + EVENT_EXAMPLE;
+                        + AddCommand.EVENT_EXAMPLE;
                 return new CommandResult(message);
             }
             break;

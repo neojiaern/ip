@@ -11,6 +11,10 @@ import java.time.LocalDate;
 public class DueCommand extends Command {
 
     public static final String COMMAND_WORD = "due";
+    public static final String INDENTATION = "    ";
+    public static final String DUE_EXAMPLE = (INDENTATION + "due: Lists deadlines and events due."
+            + System.lineSeparator() + INDENTATION + " " + "Parameters: DUE_DATE(YYYY-MM-DD)"
+            + System.lineSeparator() + INDENTATION + " " + "Example: due 2020-10-02");
 
     protected LocalDate date;
 

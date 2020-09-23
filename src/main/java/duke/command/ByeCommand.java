@@ -10,6 +10,8 @@ public class ByeCommand extends Command {
 
     public static final String COMMAND_WORD = "bye";
     public static final String INDENTATION = "    ";
+    public static final String BYE_EXAMPLE = (INDENTATION + "bye: Exits the program."
+            + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
     @Override
     public CommandResult execute(TaskList tasks, Ui ui) {

@@ -16,33 +16,6 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     public static final String INDENTATION = "    ";
-    public static final String LIST_EXAMPLE = (INDENTATION + "list: Display all tasks entered by user."
-            + System.lineSeparator() + INDENTATION + "  " + "Example: list");
-    public static final String TODO_EXAMPLE = (INDENTATION + "todo: Adds a todo task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION"
-            + System.lineSeparator() + INDENTATION + "  " + "Example: todo study");
-    public static final String DEADLINE_EXAMPLE = (INDENTATION + "deadline: Adds a deadline task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /by "
-            + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
-            + "Example: deadline CS2113T assignment /by 2020-10-02 23:59");
-    public static final String EVENT_EXAMPLE = (INDENTATION + "event: Adds an event task."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /at "
-            + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
-            + "Example: event project meeting /at 2020-10-02 17:00");
-    public static final String DELETE_EXAMPLE = (INDENTATION + "delete: Deletes a task from the list."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: INDEX_OF_TASK_TO_DELETE"
-            + System.lineSeparator() + INDENTATION + "  " + "Example: delete 2");
-    public static final String DONE_EXAMPLE = (INDENTATION + "done: Marks a completed task as done."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: INDEX_OF_COMPLETED_TASK"
-            + System.lineSeparator() + INDENTATION + "  " + "Example: done 2");
-    public static final String FIND_EXAMPLE = (INDENTATION + "find: finds tasks containing related keyword."
-            + System.lineSeparator() + INDENTATION + "  " + "Parameters: KEYWORD"
-            + System.lineSeparator() + INDENTATION + "  " + "Example: find book");
-    public static final String DUE_EXAMPLE = (INDENTATION + "due: Lists deadlines and events due."
-            + System.lineSeparator() + INDENTATION + " " + "Parameters: DUE_DATE(YYYY-MM-DD)"
-            + System.lineSeparator() + INDENTATION + " " + "Example: due 2020-10-02");
-    public static final String BYE_EXAMPLE = (INDENTATION + "bye: Exits the program."
-            + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
     /**
      * Calls the respective methods for the different commands: list, done, and delete task
@@ -72,11 +45,12 @@ public class Parser {
             return new ByeCommand();
         default:
             return new IncorrectCommand(INDENTATION + "Oh no! This command is invalid, "
-                    + "please try again.\n" + LIST_EXAMPLE + System.lineSeparator() + TODO_EXAMPLE
-                    + System.lineSeparator() + DEADLINE_EXAMPLE + System.lineSeparator()
-                    + EVENT_EXAMPLE + System.lineSeparator() + DELETE_EXAMPLE
-                    + System.lineSeparator() + DONE_EXAMPLE + System.lineSeparator() + FIND_EXAMPLE
-                    + System.lineSeparator() + DUE_EXAMPLE + System.lineSeparator() + BYE_EXAMPLE);
+                    + "please try again.\n" + ListCommand.LIST_EXAMPLE + System.lineSeparator()
+                    + AddCommand.TODO_EXAMPLE + System.lineSeparator() + AddCommand.DEADLINE_EXAMPLE
+                    + System.lineSeparator() + AddCommand.EVENT_EXAMPLE + System.lineSeparator()
+                    + DeleteCommand.DELETE_EXAMPLE + System.lineSeparator() + DoneCommand.DONE_EXAMPLE
+                    + System.lineSeparator() + FindCommand.FIND_EXAMPLE + System.lineSeparator()
+                    + DueCommand.DUE_EXAMPLE + System.lineSeparator() + ByeCommand.BYE_EXAMPLE);
         }
     }
 
@@ -95,13 +69,13 @@ public class Parser {
             String message = INDENTATION + "Oh no! The description of " + taskType + " cannot be empty.\n";
             switch (taskType) {
             case AddCommand.COMMAND_WORD_T:
-                message += TODO_EXAMPLE;
+                message += AddCommand.TODO_EXAMPLE;
                 break;
             case AddCommand.COMMAND_WORD_D:
-                message += DEADLINE_EXAMPLE;
+                message += AddCommand.DEADLINE_EXAMPLE;
                 break;
             case AddCommand.COMMAND_WORD_E:
-                message += EVENT_EXAMPLE;
+                message += AddCommand.EVENT_EXAMPLE;
                 break;
             default:
                 break;
@@ -123,11 +97,11 @@ public class Parser {
             return new DeleteCommand(deleteIndex);
         } catch (ArrayIndexOutOfBoundsException e) {
             String message = INDENTATION + "Oh no! The index for a task cannot be missing.\n"
-                    + DELETE_EXAMPLE;
+                    + DeleteCommand.DELETE_EXAMPLE;
             return new IncorrectCommand(message);
         } catch (NumberFormatException e) {
             String message = INDENTATION + "Oh no! The index for a task to delete must be an integer.\n"
-                    + DELETE_EXAMPLE;
+                    + DeleteCommand.DELETE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
@@ -145,11 +119,11 @@ public class Parser {
             return new DoneCommand(doneIndex);
         } catch (ArrayIndexOutOfBoundsException e) {
             String message = INDENTATION + "Oh no! The index for a task cannot be missing.\n"
-                    + DONE_EXAMPLE;
+                    + DoneCommand.DONE_EXAMPLE;
             return new IncorrectCommand(message);
         } catch (NumberFormatException e) {
             String message = INDENTATION + "Oh no! The index for a task to delete must be an integer.\n"
-                    + DONE_EXAMPLE;
+                    + DoneCommand.DONE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
@@ -163,7 +137,7 @@ public class Parser {
     public Command processListCmd(String[] inputParts) {
         if (inputParts.length > 1) {
             String message = INDENTATION + "Oh no! There should be no description after list.\n"
-                    + LIST_EXAMPLE;
+                    + ListCommand.LIST_EXAMPLE;
             return new IncorrectCommand(message);
         } else {
             return new ListCommand();
@@ -176,7 +150,7 @@ public class Parser {
             return new FindCommand(keyword);
         } catch (ArrayIndexOutOfBoundsException e) {
             String message = INDENTATION + "Oh no! The keyword for find cannot be missing.\n"
-                    + FIND_EXAMPLE;
+                    + FindCommand.FIND_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
@@ -187,11 +161,11 @@ public class Parser {
             return new DueCommand(dueDate);
         } catch (ArrayIndexOutOfBoundsException e) {
             String message = INDENTATION + "Oh no! The due date cannot be missing.\n"
-                    + DUE_EXAMPLE;
+                    + DueCommand.DUE_EXAMPLE;
             return new IncorrectCommand(message);
         } catch (DateTimeParseException e) {
             String message = INDENTATION + "Oh no! The due date specified is in a wrong format.\n"
-                    + DUE_EXAMPLE;
+                    + DueCommand.DUE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
