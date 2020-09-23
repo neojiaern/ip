@@ -5,6 +5,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
+import duke.command.FindCommand;
 import duke.command.IncorrectCommand;
 import duke.command.ListCommand;
 
@@ -28,6 +29,9 @@ public class Parser {
     public static final String DONE_EXAMPLE = (INDENTATION + "done: Marks a completed task as done."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: INDEX_OF_COMPLETED_TASK"
             + System.lineSeparator() + INDENTATION + "  " + "Example: done 2");
+    public static final String FIND_EXAMPLE = (INDENTATION + "find: finds tasks containing related keyword."
+            + System.lineSeparator() + INDENTATION + "  " + "Parameters: KEYWORD"
+            + System.lineSeparator() + INDENTATION + "  " + "Example: find book");
     public static final String BYE_EXAMPLE = (INDENTATION + "bye: Exits the program."
             + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
@@ -51,6 +55,8 @@ public class Parser {
             return processDoneCmd(inputParts);
         case DeleteCommand.COMMAND_WORD:
             return processDelCmd(inputParts);
+        case FindCommand.COMMAND_WORD:
+            return processFindCmd(inputParts);
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         default:
@@ -149,6 +155,17 @@ public class Parser {
             return new IncorrectCommand(message);
         } else {
             return new ListCommand();
+        }
+    }
+
+    public Command processFindCmd(String[] inputParts) {
+        try {
+            String keyword = inputParts[1];
+            return new FindCommand(keyword);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            String message = INDENTATION + "Oh no! The keyword for find cannot be missing.\n"
+                    + FIND_EXAMPLE;
+            return new IncorrectCommand(message);
         }
     }
 }

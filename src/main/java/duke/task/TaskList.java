@@ -128,10 +128,27 @@ public class TaskList {
             result = INDENTATION + "There is currently no task.";
 
         } else {
-            result = INDENTATION + "Here are the tasks in your list:";
+            result = INDENTATION + "Here are the task(s) in your list:";
             for (int i = 1; i <= tasks.size(); i++) {
                 result += "\n" + INDENTATION + i + "." + tasks.get(i-1).toString();
             }
+        }
+        return new CommandResult(result);
+    }
+
+    public CommandResult findTaskByKeyword(String keyword) {
+        String result = "";
+        int count = 1;
+        result = INDENTATION + "Here are the matching task(s) in your list:";
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task task = tasks.get(i-1);
+            if (task.taskName.contains(keyword)) {
+                result += "\n" + INDENTATION + count + "." + tasks.get(i - 1).toString();
+                count++;
+            }
+        }
+        if (count == 1) {
+            result = INDENTATION + "There are no task(s) which match the given keyword.";
         }
         return new CommandResult(result);
     }
