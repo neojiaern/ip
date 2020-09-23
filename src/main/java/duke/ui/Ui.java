@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.command.CommandResult;
+import duke.commands.CommandResult;
 
 import java.io.InputStream;
 import java.io.PrintStream;

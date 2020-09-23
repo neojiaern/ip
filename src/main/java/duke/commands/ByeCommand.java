@@ -1,4 +1,4 @@
-package duke.command;
+package duke.commands;
 
 import duke.ui.Ui;
 import duke.task.TaskList;

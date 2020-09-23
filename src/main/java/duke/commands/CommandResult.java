@@ -1,4 +1,4 @@
-package duke.command;
+package duke.commands;
 
 /**
  * Stores result of a command after execution

@@ -1,7 +1,7 @@
 package duke.task;
 
-import duke.command.AddCommand;
-import duke.command.CommandResult;
+import duke.commands.AddCommand;
+import duke.commands.CommandResult;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
