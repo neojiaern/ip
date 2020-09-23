@@ -8,7 +8,6 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
 
     protected String at;
-    protected LocalDate date;
     protected LocalTime time;
 
     public Event (String taskName, String at) {

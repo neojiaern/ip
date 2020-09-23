@@ -8,7 +8,6 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDate date;
     protected LocalTime time;
 
     public Deadline (String taskName, String by) {
