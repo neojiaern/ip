@@ -9,6 +9,7 @@ public class Task {
 
     protected String taskName;
     protected boolean isDone;
+    /** Differentiates between deadline and event tasks from todo tasks */
     public boolean hasDueDate;
     protected LocalDate date;
 

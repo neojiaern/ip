@@ -22,7 +22,7 @@ import static duke.common.Messages.MESSAGE_TASK_NOT_FOUND;
 import static duke.common.Messages.MESSAGE_WRONG_DATE_TIME_FORMAT;
 
 /**
- * Deals with operations relating to TaskList
+ * Deals with operations relating to TaskList.
  */
 public class TaskList {
 
@@ -47,11 +47,11 @@ public class TaskList {
     }
 
     /**
-     * Adds task user specified
+     * Adds a new task.
      *
      * @param taskType specifies type of task.
      * @param taskDescription description of task.
-     * @return result of execution.
+     * @return success message and task which has been added, or error message if invalid.
      */
     public CommandResult addTask(String taskType, String taskDescription) {
         switch (taskType) {
@@ -96,10 +96,10 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task based on index user specified
+     * Deletes a task based on index user specified.
      *
      * @param deleteIndex index of task to delete.
-     * @return result of execution.
+     * @return success message and task which has been deleted, or error message if task is not found.
      */
     public CommandResult deleteTask(int deleteIndex) {
         String result = "";
@@ -115,10 +115,10 @@ public class TaskList {
     }
 
     /**
-     * Marks task specified by user as done based on index
+     * Marks task specified by user as done based on index.
      *
-     * @param doneIndex contains index of completed task in list.
-     * @return result of execution.
+     * @param doneIndex index of completed task.
+     * @return success message and task which has been marked as done, or error message if task is not found.
      */
     public CommandResult doneTask(int doneIndex) {
         String result = "";
@@ -132,9 +132,9 @@ public class TaskList {
     }
 
     /**
-     * Prints tasks present in list
+     * Prints tasks present in list.
      *
-     * @return result of execution.
+     * @return list of tasks present.
      */
     public CommandResult listTasks() {
         String result = "";
@@ -149,6 +149,12 @@ public class TaskList {
         return new CommandResult(result);
     }
 
+    /**
+     * Finds tasks which match the keyword.
+     *
+     * @param keyword keyword relating to a task.
+     * @return list of tasks which match the keyword.
+     */
     public CommandResult findTaskByKeyword(String keyword) {
         String result = "";
         int count = 1;
@@ -166,6 +172,12 @@ public class TaskList {
         return new CommandResult(result);
     }
 
+    /**
+     * Finds the tasks matching the due date.
+     *
+     * @param date due date of task.
+     * @return list of tasks which match the date.
+     */
     public CommandResult findDueTasks(LocalDate date) {
         String result = "";
         int count = 1;

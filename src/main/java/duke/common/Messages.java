@@ -1,5 +1,8 @@
 package duke.common;
 
+/**
+ * Stores common messages as constants.
+ */
 public class Messages {
 
     public static final String INDENTATION = "    ";

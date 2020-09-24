@@ -4,7 +4,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Stores error message for incorrect command
+ * Stores error message for incorrect command.
  */
 public class IncorrectCommand extends Command {
 

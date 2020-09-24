@@ -23,10 +23,9 @@ public class Duke {
     public static final String filePath = "." + fileSeparator + "data" + fileSeparator + "duke.txt";
 
     /**
-     * Creates the objects and loads any previously saved TaskList
-     * If no previous TaskList is present, a new TaskList is created
+     * Creates the objects and loads any previously saved TaskList or creates a new one.
      *
-     * @param filePath of duke.txt
+     * @param filePath of duke.txt.
      */
     public Duke(String filePath) {
         ui = new Ui();
@@ -45,8 +44,8 @@ public class Duke {
     }
 
     /**
-     * Prints greet message
-     * Loops for user input, processes it and prints result of execution until user exits
+     * Prints greet message.
+     * Loops for user input, processes it and prints result of execution until user exits.
      */
     public void run() {
         ui.printGreetMsg();
@@ -65,9 +64,8 @@ public class Duke {
     }
 
     /**
-     * Saves changes made to temp.txt and compares differences with duke.txt
-     * If different, duke.txt will be replaced, else it will be unchanged
-     * Exits from program
+     * Saves changes made to duke.txt.
+     * Exits from program.
      */
     private void exit() {
         try {

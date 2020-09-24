@@ -21,12 +21,15 @@ import static duke.common.Messages.MESSAGE_MISSING_KEYWORD;
 import static duke.common.Messages.MESSAGE_NON_INTEGER;
 import static duke.common.Messages.MESSAGE_WRONG_DATE_FORMAT;
 
+/**
+ * Parses user input.
+ */
 public class Parser {
 
     public static final String INDENTATION = "    ";
 
     /**
-     * Calls the respective methods for the different commands: list, done, and delete task
+     * Calls the respective methods for the different commands: add, list, done, due, find and delete task.
      *
      * @param userInput user's input.
      * @return Command based on its type.
@@ -63,7 +66,7 @@ public class Parser {
     }
 
     /**
-     * Process adding of todo, deadline and event tasks
+     * Processes adding of todo, deadline and event tasks command.
      *
      * @param inputParts String array containing type of task and it's description.
      * @return AddCommand containing type of task and its description or IncorrectCommand if invalid.
@@ -93,7 +96,7 @@ public class Parser {
     }
 
     /**
-     * Process delete command
+     * Processes delete command.
      *
      * @param inputParts String array containing delete command and index of task.
      * @return DeleteCommand containing index of task to delete or IncorrectCommand if invalid.
@@ -113,10 +116,10 @@ public class Parser {
     }
 
     /**
-     * Process done command
+     * Processes done command.
      *
      * @param inputParts String array containing done command and index of task.
-     * @return DoneCommand containing index of task done or IncorrectCommand if invalid.
+     * @return DoneCommand containing index of completed task or IncorrectCommand if invalid.
      */
     public Command processDoneCmd(String[] inputParts) {
         try {
@@ -133,7 +136,7 @@ public class Parser {
     }
 
     /**
-     * Process list command
+     * Processes list command.
      *
      * @param inputParts String array containing list command.
      * @return ListCommand or IncorrectCommand if invalid.
@@ -147,6 +150,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes find command.
+     *
+     * @param inputParts String array containing find command and keyword.
+     * @return FindCommand containing keyword or IncorrectCommand if invalid.
+     */
     public Command processFindCmd(String[] inputParts) {
         try {
             String keyword = inputParts[1];
@@ -156,6 +165,13 @@ public class Parser {
             return new IncorrectCommand(message);
         }
     }
+
+    /**
+     * Processes due command.
+     *
+     * @param inputParts String array containing due command and date.
+     * @return DueCommand containing date or IncorrectCommand if invalid.
+     */
     public Command processDueCmd(String[] inputParts) {
         try {
             String dueDescription = inputParts[1];

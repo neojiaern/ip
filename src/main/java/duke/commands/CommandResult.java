@@ -1,7 +1,7 @@
 package duke.commands;
 
 /**
- * Stores result of a command after execution
+ * Stores result of a command after execution.
  */
 public class CommandResult {
 
