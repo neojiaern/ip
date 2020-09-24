@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Deals with loading and saving tasks from duke.txt
+ * Deals with loading from and saving tasks to duke.txt.
  */
 public class Storage {
 
@@ -33,7 +33,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from duke.txt
+     * Loads tasks from duke.txt.
      *
      * @return tasks in duke.txt.
      * @throws DukeFileException when duke.txt is empty.
@@ -50,7 +50,7 @@ public class Storage {
     }
 
     /**
-     * Checks if duke.txt is present, if not create a new one
+     * Checks if duke.txt is present, if not create a new one.
      *
      * @return the file duke.txt.
      */
@@ -71,7 +71,7 @@ public class Storage {
     }
 
     /**
-     * Processes the duke.txt file to save the tasks present in it to ArrayList
+     * Processes the duke.txt file to save the tasks present in it to ArrayList.
      *
      * @param dukeFile duke.txt file.
      * @param tasks an ArrayList to store tasks.
@@ -112,12 +112,12 @@ public class Storage {
     }
 
     /**
-     * Saves the current tasks in the list to a temporary file
+     * Saves the current tasks in the list to a temporary file.
      *
-     * @param tasks to be saved into temp.txt after changes have been made.
+     * @param tasks list of tasks to be saved into temp.txt.
      */
     public void saveTasksToTempFile(TaskList tasks) throws DukeFileException {
-        FileWriter tempFile = null;
+        FileWriter tempFile;
         try {
             tempFile = new FileWriter("data/temp.txt");
         } catch (IOException e) {
@@ -169,7 +169,7 @@ public class Storage {
     }
 
     /**
-     * Checks if status of task is completed to assign it the correct icon
+     * Checks if status of task is completed in order to assign it the correct icon.
      *
      * @param status whether task is done or not done.
      * @return status of task.
@@ -184,15 +184,15 @@ public class Storage {
     }
 
     /**
-     * Compares duke.txt and temp.txt to find differences
+     * Compares duke.txt and temp.txt.
      *
      * @return result of whether both files are the same.
      * @throws IOException if files cannot be read.
      * @throws DukeFileException if there are errors when comparing files.
      */
     public boolean compareFile() throws DukeFileException, IOException {
-        BufferedReader dukeReader = null;
-        BufferedReader tempReader = null;
+        BufferedReader dukeReader;
+        BufferedReader tempReader;
         try {
             dukeReader = new BufferedReader(new FileReader(filePath));
         } catch (FileNotFoundException e) {
@@ -231,11 +231,11 @@ public class Storage {
     }
 
     /**
-     * If files are different, replace duke.txt with temp.txt to save changes made
-     * If files are the same, remove temp.txt
+     * Replaces duke.txt with temp.txt if files are different.
+     * Removes temp.txt if files are the same.
      *
      * @param isEqual whether duke.txt and temp.txt are the same.
-     * @return result of save
+     * @return result of save.
      */
     public CommandResult save(boolean isEqual) {
         File tempFile = new File("." + fileSeparator + "data" + fileSeparator + "temp.txt");

@@ -4,7 +4,7 @@ import duke.ui.Ui;
 import duke.task.TaskList;
 
 /**
- * Prints bye message and allows user to exit program
+ * Prints bye message.
  */
 public class ByeCommand extends Command {
 
@@ -19,7 +19,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Changes loop condition for user to exit program
+     * Changes loop condition for user to exit program.
      *
      * @return value of isExit.
      */

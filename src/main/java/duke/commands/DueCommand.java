@@ -6,11 +6,12 @@ import duke.ui.Ui;
 import java.time.LocalDate;
 
 /**
- * Lists deadlines and events due on the date specified by user
+ * Lists deadlines and events due on the date specified by user.
  */
 public class DueCommand extends Command {
 
     public static final String COMMAND_WORD = "due";
+
     public static final String INDENTATION = "    ";
     public static final String DUE_EXAMPLE = (INDENTATION + "due: Lists deadlines and events due."
             + System.lineSeparator() + INDENTATION + " " + "Parameters: DUE_DATE(YYYY-MM-DD)"
@@ -18,6 +19,11 @@ public class DueCommand extends Command {
 
     protected LocalDate date;
 
+    /**
+     * Stores date of deadline/event.
+     *
+     * @param date due date of task specified by user.
+     */
     public DueCommand(LocalDate date) {
         this.date = date;
     }

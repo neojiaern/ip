@@ -4,13 +4,14 @@ import duke.ui.Ui;
 import duke.task.TaskList;
 
 /**
- * Adds a todo, deadline or event task to TaskList
+ * Adds a todo, deadline or event task to TaskList.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD_T = "todo";
     public static final String COMMAND_WORD_D = "deadline";
     public static final String COMMAND_WORD_E = "event";
+
     public static final String INDENTATION = "    ";
     public static final String TODO_EXAMPLE = (INDENTATION + "todo: Adds a todo task."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION"
@@ -27,6 +28,12 @@ public class AddCommand extends Command {
     protected String taskType;
     protected String taskDescription;
 
+    /**
+     * Constructor for creating AddCommand
+     *
+     * @param taskType todo, deadline or event task.
+     * @param taskDescription task details.
+     */
     public AddCommand(String taskType, String taskDescription) {
         this.taskType = taskType;
         this.taskDescription = taskDescription;

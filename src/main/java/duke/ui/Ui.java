@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
- * Deals with interactions with the user
+ * Deals with interactions with the user.
  */
 public class Ui {
 
@@ -31,6 +31,9 @@ public class Ui {
         return in.nextLine();
     }
 
+    /**
+     * Prints error message when loading tasks from duke.txt.
+     */
     public void showLoadingError() {
         out.println(INDENTATION + "(No previously loaded task from duke.txt)");
     }
@@ -43,6 +46,11 @@ public class Ui {
         out.println();
     }
 
+    /**
+     * Prints result of command execution.
+     *
+     * @param result contains message to be printed to user.
+     */
     public void printResult(CommandResult result) {
         out.println(result.toString());
     }
