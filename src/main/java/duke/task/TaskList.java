@@ -7,6 +7,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import static duke.common.Messages.MESSAGE_ADDED_TASK;
+import static duke.common.Messages.MESSAGE_DUE_TASK;
+import static duke.common.Messages.MESSAGE_FIND_TASK;
+import static duke.common.Messages.MESSAGE_LIST_TASK;
+import static duke.common.Messages.MESSAGE_MARK_AS_DONE;
+import static duke.common.Messages.MESSAGE_MISSING_AT_DESCRIPTION;
+import static duke.common.Messages.MESSAGE_MISSING_BY_DESCRIPTION;
+import static duke.common.Messages.MESSAGE_NO_DUE_TASK;
+import static duke.common.Messages.MESSAGE_NO_TASK;
+import static duke.common.Messages.MESSAGE_NO_TASK_FOUND;
+import static duke.common.Messages.MESSAGE_REMOVED_TASK;
+import static duke.common.Messages.MESSAGE_TASK_NOT_FOUND;
+import static duke.common.Messages.MESSAGE_WRONG_DATE_TIME_FORMAT;
+
 /**
  * Deals with operations relating to TaskList
  */
@@ -51,12 +65,10 @@ public class TaskList {
                 Task deadlineTask = new Deadline(deadlineParts[0], deadlineParts[1]);
                 tasks.add(deadlineTask);
             } catch (ArrayIndexOutOfBoundsException e) {
-                String message = INDENTATION + "Oh no! /by description is missing "
-                        + "or incomplete from deadline.\n" + AddCommand.DEADLINE_EXAMPLE;
+                String message = MESSAGE_MISSING_BY_DESCRIPTION + AddCommand.DEADLINE_EXAMPLE;
                 return new CommandResult(message);
             } catch (DateTimeParseException e) {
-                String message = INDENTATION + "Oh no! The date or time specified is in a wrong format.\n"
-                        + AddCommand.DEADLINE_EXAMPLE;
+                String message = MESSAGE_WRONG_DATE_TIME_FORMAT + AddCommand.DEADLINE_EXAMPLE;
                 return new CommandResult(message);
             }
             break;
@@ -66,12 +78,10 @@ public class TaskList {
                 Task eventTask = new Event(eventParts[0], eventParts[1]);
                 tasks.add(eventTask);
             } catch (ArrayIndexOutOfBoundsException e) {
-                String message = INDENTATION + "Oh no! /at description is missing "
-                        + "or incomplete from event.\n" + AddCommand.EVENT_EXAMPLE;
+                String message = MESSAGE_MISSING_AT_DESCRIPTION + AddCommand.EVENT_EXAMPLE;
                 return new CommandResult(message);
             } catch (DateTimeParseException e) {
-                String message = INDENTATION + "Oh no! The date or time specified is in a wrong format.\n"
-                        + AddCommand.EVENT_EXAMPLE;
+                String message = MESSAGE_WRONG_DATE_TIME_FORMAT + AddCommand.EVENT_EXAMPLE;
                 return new CommandResult(message);
             }
             break;
@@ -79,8 +89,7 @@ public class TaskList {
             break;
         }
 
-        String result = INDENTATION + "Got it. I've added this task:\n"
-                + INDENTATION + "  " + tasks.get(tasks.size()-1) + "\n"
+        String result = MESSAGE_ADDED_TASK + tasks.get(tasks.size()-1) + "\n"
                 + INDENTATION + "Now you have " + tasks.size() + " task(s) in the list.";
 
         return new CommandResult(result);
@@ -97,10 +106,10 @@ public class TaskList {
         try {
             String taskMessage = INDENTATION + " " + tasks.get(deleteIndex-1).toString();
             tasks.remove(deleteIndex-1);
-            result = INDENTATION + "Noted. I've removed this task:\n" + taskMessage + "\n"
+            result = MESSAGE_REMOVED_TASK + taskMessage + "\n"
                     + INDENTATION + "Now you have " + tasks.size() + " task(s) in the list.";
         } catch (IndexOutOfBoundsException e) {
-            result = INDENTATION + "Oh no! This task is not found.";
+            result = MESSAGE_TASK_NOT_FOUND;
         }
         return new CommandResult(result);
     }
@@ -115,10 +124,9 @@ public class TaskList {
         String result = "";
         try {
             tasks.get(doneIndex-1).markAsDone();
-            result = INDENTATION + "Nice! I've marked this task as done:\n"
-                    + INDENTATION + "  " + tasks.get(doneIndex-1).toString();
+            result = MESSAGE_MARK_AS_DONE + tasks.get(doneIndex-1).toString();
         } catch (IndexOutOfBoundsException e) {
-            result = INDENTATION + "Oh no! This task is not found.";
+            result = MESSAGE_TASK_NOT_FOUND;
         }
         return new CommandResult(result);
     }
@@ -131,9 +139,9 @@ public class TaskList {
     public CommandResult listTasks() {
         String result = "";
         if (tasks.size() == 0) {
-            result = INDENTATION + "There is currently no task.";
+            result = MESSAGE_NO_TASK;
         } else {
-            result = INDENTATION + "Here are the task(s) in your list:";
+            result = MESSAGE_LIST_TASK;
             for (int i = 1; i <= tasks.size(); i++) {
                 result += "\n" + INDENTATION + i + "." + tasks.get(i-1).toString();
             }
@@ -144,7 +152,7 @@ public class TaskList {
     public CommandResult findTaskByKeyword(String keyword) {
         String result = "";
         int count = 1;
-        result = INDENTATION + "Here are the matching task(s) in your list:";
+        result = MESSAGE_FIND_TASK;
         for (int i = 1; i <= tasks.size(); i++) {
             Task task = tasks.get(i - 1);
             if (task.taskName.contains(keyword)) {
@@ -153,7 +161,7 @@ public class TaskList {
             }
         }
         if (count == 1) {
-            result = INDENTATION + "There are no task(s) which match the given keyword.";
+            result = MESSAGE_NO_TASK_FOUND;
         }
         return new CommandResult(result);
     }
@@ -161,7 +169,7 @@ public class TaskList {
     public CommandResult findDueTasks(LocalDate date) {
         String result = "";
         int count = 1;
-        result = INDENTATION + "Here are the tasks due:";
+        result = MESSAGE_DUE_TASK;
         for (int i = 1; i <= tasks.size(); i++) {
             Task task = tasks.get(i-1);
             if (task.hasDueDate && task.date.equals(date)) {
@@ -170,7 +178,7 @@ public class TaskList {
             }
         }
         if (count == 1) {
-            result = INDENTATION + "There are no deadlines or events due on that date.";
+            result = MESSAGE_NO_DUE_TASK;
         }
         return new CommandResult(result);
     }

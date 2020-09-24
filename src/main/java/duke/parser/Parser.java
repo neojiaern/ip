@@ -13,6 +13,14 @@ import duke.commands.ListCommand;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+import static duke.common.Messages.MESSAGE_EXTRA_DESCRIPTION;
+import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
+import static duke.common.Messages.MESSAGE_MISSING_DUE_DATE;
+import static duke.common.Messages.MESSAGE_MISSING_INDEX;
+import static duke.common.Messages.MESSAGE_MISSING_KEYWORD;
+import static duke.common.Messages.MESSAGE_NON_INTEGER;
+import static duke.common.Messages.MESSAGE_WRONG_DATE_FORMAT;
+
 public class Parser {
 
     public static final String INDENTATION = "    ";
@@ -44,13 +52,13 @@ public class Parser {
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         default:
-            return new IncorrectCommand(INDENTATION + "Oh no! This command is invalid, "
-                    + "please try again.\n" + ListCommand.LIST_EXAMPLE + System.lineSeparator()
-                    + AddCommand.TODO_EXAMPLE + System.lineSeparator() + AddCommand.DEADLINE_EXAMPLE
-                    + System.lineSeparator() + AddCommand.EVENT_EXAMPLE + System.lineSeparator()
-                    + DeleteCommand.DELETE_EXAMPLE + System.lineSeparator() + DoneCommand.DONE_EXAMPLE
-                    + System.lineSeparator() + FindCommand.FIND_EXAMPLE + System.lineSeparator()
-                    + DueCommand.DUE_EXAMPLE + System.lineSeparator() + ByeCommand.BYE_EXAMPLE);
+            return new IncorrectCommand(MESSAGE_INVALID_COMMAND + ListCommand.LIST_EXAMPLE
+                    + System.lineSeparator() + AddCommand.TODO_EXAMPLE + System.lineSeparator()
+                    + AddCommand.DEADLINE_EXAMPLE + System.lineSeparator() + AddCommand.EVENT_EXAMPLE
+                    + System.lineSeparator() + DeleteCommand.DELETE_EXAMPLE + System.lineSeparator()
+                    + DoneCommand.DONE_EXAMPLE + System.lineSeparator() + FindCommand.FIND_EXAMPLE
+                    + System.lineSeparator() + DueCommand.DUE_EXAMPLE + System.lineSeparator()
+                    + ByeCommand.BYE_EXAMPLE);
         }
     }
 
@@ -96,12 +104,10 @@ public class Parser {
             int deleteIndex = Integer.parseInt(deleteDescription);
             return new DeleteCommand(deleteIndex);
         } catch (ArrayIndexOutOfBoundsException e) {
-            String message = INDENTATION + "Oh no! The index for a task cannot be missing.\n"
-                    + DeleteCommand.DELETE_EXAMPLE;
+            String message = MESSAGE_MISSING_INDEX + DeleteCommand.DELETE_EXAMPLE;
             return new IncorrectCommand(message);
         } catch (NumberFormatException e) {
-            String message = INDENTATION + "Oh no! The index for a task to delete must be an integer.\n"
-                    + DeleteCommand.DELETE_EXAMPLE;
+            String message = MESSAGE_NON_INTEGER + DeleteCommand.DELETE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
@@ -118,12 +124,10 @@ public class Parser {
             int doneIndex = Integer.parseInt(doneDescription);
             return new DoneCommand(doneIndex);
         } catch (ArrayIndexOutOfBoundsException e) {
-            String message = INDENTATION + "Oh no! The index for a task cannot be missing.\n"
-                    + DoneCommand.DONE_EXAMPLE;
+            String message = MESSAGE_MISSING_INDEX + DoneCommand.DONE_EXAMPLE;
             return new IncorrectCommand(message);
         } catch (NumberFormatException e) {
-            String message = INDENTATION + "Oh no! The index for a task to delete must be an integer.\n"
-                    + DoneCommand.DONE_EXAMPLE;
+            String message = MESSAGE_NON_INTEGER + DoneCommand.DONE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
@@ -136,8 +140,7 @@ public class Parser {
      */
     public Command processListCmd(String[] inputParts) {
         if (inputParts.length > 1) {
-            String message = INDENTATION + "Oh no! There should be no description after list.\n"
-                    + ListCommand.LIST_EXAMPLE;
+            String message = MESSAGE_EXTRA_DESCRIPTION + ListCommand.LIST_EXAMPLE;
             return new IncorrectCommand(message);
         } else {
             return new ListCommand();
@@ -149,8 +152,7 @@ public class Parser {
             String keyword = inputParts[1];
             return new FindCommand(keyword);
         } catch (ArrayIndexOutOfBoundsException e) {
-            String message = INDENTATION + "Oh no! The keyword for find cannot be missing.\n"
-                    + FindCommand.FIND_EXAMPLE;
+            String message = MESSAGE_MISSING_KEYWORD + FindCommand.FIND_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }
@@ -160,12 +162,10 @@ public class Parser {
             LocalDate dueDate = LocalDate.parse(dueDescription);
             return new DueCommand(dueDate);
         } catch (ArrayIndexOutOfBoundsException e) {
-            String message = INDENTATION + "Oh no! The due date cannot be missing.\n"
-                    + DueCommand.DUE_EXAMPLE;
+            String message = MESSAGE_MISSING_DUE_DATE + DueCommand.DUE_EXAMPLE;
             return new IncorrectCommand(message);
         } catch (DateTimeParseException e) {
-            String message = INDENTATION + "Oh no! The due date specified is in a wrong format.\n"
-                    + DueCommand.DUE_EXAMPLE;
+            String message = MESSAGE_WRONG_DATE_FORMAT + DueCommand.DUE_EXAMPLE;
             return new IncorrectCommand(message);
         }
     }

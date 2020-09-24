@@ -10,6 +10,8 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 
+import static duke.common.Messages.MESSAGE_ERROR_COMPARING;
+
 public class Duke {
 
     private Ui ui;
@@ -75,7 +77,7 @@ public class Duke {
         } catch (DukeFileException e) {
             ui.printResult(new CommandResult(e.getMessage()));
         } catch (IOException e) {
-             ui.printResult(new CommandResult("(Error comparing files.)"));
+             ui.printResult(new CommandResult(MESSAGE_ERROR_COMPARING));
         }
         System.exit(0);
     }
