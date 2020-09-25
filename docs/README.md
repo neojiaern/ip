@@ -1,7 +1,8 @@
 # User Guide
 Duke is a program that allows users to track theirs tasks via the Command Line Interface (CLI).
 
-##Quick Start
+## Quick Start
+
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest ip.jar from [here](https://github.com/neojiaern/ip/releases).
 3. Copy the jar file to the folder you want to use as the home folder for Duke.
