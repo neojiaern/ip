@@ -220,15 +220,45 @@ Bye. Hope to see you again soon!
 Duke data is automatically saved into data/duke.txt in the home folder ip.jar is in.
 
 ## Command summary
-
-| **Action** | **Format, Examples** |
-| ------------ | ------------- |
-| Bye | `bye` |
-| Deadline | `deadline TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `deadline CS2113T assignment /by 2020-10-02 23:59` |
-| Delete | `delete INDEX_OF_TASK_TO_DELETE` <br> e.g. `delete 2` |
-| Done | `done INDEX_OF_COMPLETED_TASK` <br> e.g. `done 2` |
-| Due | `due DATE(YYYY-MM-DD)` <br> e.g. `due 2020-10-02` |
-| Event | `event TASK_DESCRIPTION /at DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `event project meeting /at 2020-10-01 14:00` |
-| Find | `find KEYWORD [MORE_KEYWORDS]` <br> `find CS2113T` |
-| List | `list` |
-| Todo | `todo TASK_DESCRIPTION` <br> e.g. `todo CS2113T revision` |
+<table>
+  <tr>
+    <th>Action</th>
+    <th>Format, Examples</th>
+  </tr>
+  <tr>
+    <td>Bye</td>
+    <td><code>bye</code></td>
+  </tr>
+  <tr>
+    <td>Deadline</td>
+    <td><code>deadline TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)</code> <br> e.g. <code>deadline CS2113T assignment /by 2020-10-02 23:59</code></td>
+  </tr>
+  <tr>
+    <td>Delete</td>
+    <td><code>delete INDEX_OF_TASK_TO_DELETE</code> <br> e.g. <code>delete 2</code></td>
+  </tr>
+  <tr>
+    <td>Done</td>
+    <td><code>done INDEX_OF_COMPLETED_TASK</code> <br> e.g. <code>done 2</code></td>
+  </tr>
+  <tr>
+    <td>Due</td>
+    <td><code>due DATE(YYYY-MM-DD)</code> <br> e.g. <code>due 2020-10-02</code></td>
+  </tr>
+  <tr>
+    <td>Event</td>
+    <td><code>event TASK_DESCRIPTION /at DATE(YYYY-MM-DD) TIME(HH:mm)</code> <br> e.g. <code>event project meeting /at 2020-10-01 14:00</code></td>
+  </tr>
+  <tr>
+    <td>Find</td>
+    <td><code>find KEYWORD [MORE_KEYWORDS]</code> <br> <code>find CS2113T</code></td>
+  </tr>
+  <tr>
+    <td>List</td>
+    <td><code>list</code></td>
+  </tr>
+  <tr>
+    <td>Todo</td>
+    <td><code>todo TASK_DESCRIPTION</code> <br> e.g. <code>todo CS2113T revision</code></td>
+  </tr>
+</table>
