@@ -1,4 +1,4 @@
-    (No previously loaded task from duke.txt)
+(No previously loaded task from duke.txt)
  ____        _        
 |  _ \ _   _| | _____ 
 | | | | | | | |/ / _ \
@@ -16,41 +16,45 @@
 
     ____________________________________________________________
     Got it. I've added this task:
-      [D][✘] assignment (by: monday)
+      [T][✘] CS2113T revision
     Now you have 1 task(s) in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [E][✘] project meeting (at: tuesday 4pm)
+      [D][✘] CS2113T assignment (by: Oct 2 2020 23:59)
     Now you have 2 task(s) in the list.
     ____________________________________________________________
 
     ____________________________________________________________
     Got it. I've added this task:
-      [T][✘] homework
+      [E][✘] project meeting (at: Oct 1 2020 17:00)
     Now you have 3 task(s) in the list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The task already exists.
     ____________________________________________________________
 
     ____________________________________________________________
     Oh no! The description of todo cannot be empty.
     todo: Adds a todo task.
       Parameters: TASK_DESCRIPTION
-      Example: todo study
+      Example: todo CS2113T revision
     ____________________________________________________________
 
     ____________________________________________________________
     Oh no! The description of deadline cannot be empty.
     deadline: Adds a deadline task.
-      Parameters: TASK_DESCRIPTION /by TIME
-      Example: deadline CS2113T assignment /by Monday
+      Parameters: TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)
+      Example: deadline CS2113T assignment /by 2020-10-02 23:59
     ____________________________________________________________
 
     ____________________________________________________________
     Oh no! The description of event cannot be empty.
     event: Adds an event task.
-      Parameters: TASK_DESCRIPTION /at TIME
-      Example: event project meeting /at Tuesday 2pm
+      Parameters: TASK_DESCRIPTION /at DATE(YYYY-MM-DD) TIME(HH:mm)
+      Example: event project meeting /at 2020-10-02 17:00
     ____________________________________________________________
 
     ____________________________________________________________
@@ -60,10 +64,54 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    Here are the tasks in your list:
-    1.[D][✘] assignment (by: monday)
-    2.[E][✘] project meeting (at: tuesday 4pm)
-    3.[T][✘] homework
+    Here are the task(s) in your list:
+    1.[T][✘] CS2113T revision
+    2.[D][✘] CS2113T assignment (by: Oct 2 2020 23:59)
+    3.[E][✘] project meeting (at: Oct 1 2020 17:00)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The due date cannot be missing.
+    due: Lists deadlines and events due.
+     Parameters: DUE_DATE(YYYY-MM-DD)
+     Example: due 2020-10-02
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The due date specified is in a wrong format.
+    due: Lists deadlines and events due.
+     Parameters: DUE_DATE(YYYY-MM-DD)
+     Example: due 2020-10-02
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The due date specified is in a wrong format.
+    due: Lists deadlines and events due.
+     Parameters: DUE_DATE(YYYY-MM-DD)
+     Example: due 2020-10-02
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Here are the tasks due:
+    1.[D][✘] CS2113T assignment (by: Oct 2 2020 23:59)
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Oh no! The keyword for find is missing.
+    find: Finds tasks containing related keyword.
+      Parameters: KEYWORD [MORE_KEYWORDS]
+      Example: find book
+    ____________________________________________________________
+
+    ____________________________________________________________
+    There are no task(s) which match the given keyword.
+    ____________________________________________________________
+
+    ____________________________________________________________
+    Here are the matching task(s) in your list:
+    1.[T][✘] CS2113T revision
+    2.[D][✘] CS2113T assignment (by: Oct 2 2020 23:59)
+    3.[E][✘] project meeting (at: Oct 1 2020 17:00)
     ____________________________________________________________
 
     ____________________________________________________________
@@ -72,25 +120,31 @@
       Example: list
     todo: Adds a todo task.
       Parameters: TASK_DESCRIPTION
-      Example: todo study
+      Example: todo CS2113T revision
     deadline: Adds a deadline task.
-      Parameters: TASK_DESCRIPTION /by TIME
-      Example: deadline CS2113T assignment /by Monday
+      Parameters: TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)
+      Example: deadline CS2113T assignment /by 2020-10-02 23:59
     event: Adds an event task.
-      Parameters: TASK_DESCRIPTION /at TIME
-      Example: event project meeting /at Tuesday 2pm
+      Parameters: TASK_DESCRIPTION /at DATE(YYYY-MM-DD) TIME(HH:mm)
+      Example: event project meeting /at 2020-10-02 17:00
     delete: Deletes a task from the list.
       Parameters: INDEX_OF_TASK_TO_DELETE
       Example: delete 2
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
+    find: Finds tasks containing related keyword.
+      Parameters: KEYWORD [MORE_KEYWORDS]
+      Example: find book
+    due: Lists deadlines and events due.
+     Parameters: DUE_DATE(YYYY-MM-DD)
+     Example: due 2020-10-02
     bye: Exits the program.
       Example: bye
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a task cannot be missing.
+    Oh no! The index for a task is missing.
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
@@ -101,7 +155,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a task to delete must be an integer.
+    Oh no! The index provided must be an integer.
     done: Marks a completed task as done.
       Parameters: INDEX_OF_COMPLETED_TASK
       Example: done 2
@@ -109,23 +163,23 @@
 
     ____________________________________________________________
     Nice! I've marked this task as done:
-      [E][✓] project meeting (at: tuesday 4pm)
+      [D][✓] CS2113T assignment (by: Oct 2 2020 23:59)
     ____________________________________________________________
 
     ____________________________________________________________
     Nice! I've marked this task as done:
-      [T][✓] homework
+      [E][✓] project meeting (at: Oct 1 2020 17:00)
     ____________________________________________________________
 
     ____________________________________________________________
-    Here are the tasks in your list:
-    1.[D][✘] assignment (by: monday)
-    2.[E][✓] project meeting (at: tuesday 4pm)
-    3.[T][✓] homework
+    Here are the task(s) in your list:
+    1.[T][✘] CS2113T revision
+    2.[D][✓] CS2113T assignment (by: Oct 2 2020 23:59)
+    3.[E][✓] project meeting (at: Oct 1 2020 17:00)
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a task cannot be missing.
+    Oh no! The index for a task is missing.
     delete: Deletes a task from the list.
       Parameters: INDEX_OF_TASK_TO_DELETE
       Example: delete 2
@@ -136,7 +190,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-    Oh no! The index for a task to delete must be an integer.
+    Oh no! The index provided must be an integer.
     delete: Deletes a task from the list.
       Parameters: INDEX_OF_TASK_TO_DELETE
       Example: delete 2
@@ -144,19 +198,18 @@
 
     ____________________________________________________________
     Noted. I've removed this task:
-     [E][✓] project meeting (at: tuesday 4pm)
+     [D][✓] CS2113T assignment (by: Oct 2 2020 23:59)
     Now you have 2 task(s) in the list.
     ____________________________________________________________
 
     ____________________________________________________________
-    Here are the tasks in your list:
-    1.[D][✘] assignment (by: monday)
-    2.[T][✓] homework
+    Here are the task(s) in your list:
+    1.[T][✘] CS2113T revision
+    2.[E][✓] project meeting (at: Oct 1 2020 17:00)
     ____________________________________________________________
 
     ____________________________________________________________
     Bye. Hope to see you again soon!
     ____________________________________________________________
 
-
-    (Changes have been saved to duke.txt)
+(Changes have been saved to duke.txt)

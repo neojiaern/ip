@@ -1,12 +1,20 @@
 list
-deadline assignment /by monday
-event project meeting /at tuesday 4pm
-todo homework
+todo CS2113T revision
+deadline CS2113T assignment /by 2020-10-02 23:59
+event project meeting /at 2020-10-01 17:00
+todo project meeting
 todo
 deadline
 event
 list abc
 list
+due
+due dfwefw
+due 2020-11-333
+due 2020-10-02
+find
+find blah
+find CS2113T meeting
 blah
 done
 done 9
