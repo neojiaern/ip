@@ -220,7 +220,8 @@ Bye. Hope to see you again soon!
 Duke data is automatically saved into data/duke.txt in the home folder ip.jar is in.
 
 ## Command summary
-| Action | Format, Examples |
+
+| **Action** | **Format, Examples** |
 | ------------ | ------------- |
 | Bye | `bye` |
 | Deadline | `deadline TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `deadline CS2113T assignment /by 2020-10-02 23:59` |
