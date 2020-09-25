@@ -41,7 +41,7 @@ public class Storage {
     public ArrayList<Task> load() throws DukeFileException {
         File dukeFile = createFile();
         if (dukeFile.length() == 0) {
-            throw new DukeFileException(System.lineSeparator() + INDENTATION + "(duke.txt is empty)");
+            throw new DukeFileException("(duke.txt is empty)");
         } else {
             ArrayList<Task> tasks = new ArrayList<>();
             processFile(dukeFile, tasks);
@@ -65,7 +65,7 @@ public class Storage {
             }
             dukeFile.createNewFile();
         } catch (IOException e) {
-            System.out.println(System.lineSeparator() + INDENTATION + "(File duke.txt could not be created)");
+            System.out.println("(File duke.txt could not be created)");
         }
         return dukeFile;
     }
@@ -81,8 +81,7 @@ public class Storage {
         try {
             reader = new Scanner(dukeFile);
         } catch (FileNotFoundException e) {
-            throw new DukeFileException(System.lineSeparator() + INDENTATION
-                    + "(File duke.txt could not be found)");
+            throw new DukeFileException("(File duke.txt could not be found)");
         }
         while (reader.hasNextLine()) {
             String data = reader.nextLine();
@@ -121,7 +120,7 @@ public class Storage {
         try {
             tempFile = new FileWriter("data/temp.txt");
         } catch (IOException e) {
-            throw new DukeFileException(System.lineSeparator() + INDENTATION + "(Could not create temp.txt)");
+            throw new DukeFileException("(Could not create temp.txt)");
         }
         for(int i = 1; i <= tasks.getCount(); i++) {
             String task = "";
@@ -158,13 +157,13 @@ public class Storage {
             try {
                 tempFile.write(entry);
             } catch (IOException e) {
-                throw new DukeFileException(System.lineSeparator() + INDENTATION + "(Could not write to temp.txt)");
+                throw new DukeFileException("(Could not write to temp.txt)");
             }
         }
         try {
             tempFile.close();
         } catch (IOException e) {
-            throw new DukeFileException(System.lineSeparator() + INDENTATION + "(temp.txt could not be closed)");
+            throw new DukeFileException("(temp.txt could not be closed)");
         }
     }
 
@@ -196,14 +195,12 @@ public class Storage {
         try {
             dukeReader = new BufferedReader(new FileReader(filePath));
         } catch (FileNotFoundException e) {
-            throw new DukeFileException(System.lineSeparator() + INDENTATION
-                    + "(Error comparing files, duke.txt not found)");
+            throw new DukeFileException("(Error comparing files, duke.txt not found)");
         }
         try {
             tempReader = new BufferedReader(new FileReader("data" + fileSeparator + "temp.txt"));
         } catch (FileNotFoundException e) {
-            throw new DukeFileException(System.lineSeparator() + INDENTATION
-                    + "(Error comparing files, temp.txt not found)");
+            throw new DukeFileException("(Error comparing files, temp.txt not found)");
         }
         String dukeLine = dukeReader.readLine();
         String tempLine = tempReader.readLine();
@@ -244,20 +241,16 @@ public class Storage {
             boolean isDeleted = dukeFile.delete();
             boolean isRenamed = tempFile.renameTo(dukeFile);
             if (isRenamed && isDeleted) {
-                return new CommandResult(System.lineSeparator() + INDENTATION
-                        + "(Changes have been saved to duke.txt)");
+                return new CommandResult("(Changes have been saved to duke.txt)");
             } else {
-                return new CommandResult(System.lineSeparator() + INDENTATION
-                        + "(Changes have not been saved to duke.txt)");
+                return new CommandResult("(Changes have not been saved to duke.txt)");
             }
         } else {
             boolean isDeleted = tempFile.delete();
             if (isDeleted) {
-                return new CommandResult(System.lineSeparator() + INDENTATION
-                        + "(No changes have been made to duke.txt)");
+                return new CommandResult("(No changes have been made to duke.txt)");
             } else {
-                return new CommandResult(System.lineSeparator() + INDENTATION
-                        + "(Failed to remove temp.txt)");
+                return new CommandResult("(Failed to remove temp.txt)");
             }
         }
     }

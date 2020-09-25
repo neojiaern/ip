@@ -9,11 +9,11 @@ public class Messages {
     public static final String MESSAGE_EXTRA_DESCRIPTION = INDENTATION
             + "Oh no! There should be no description after list.\n";
     public static final String MESSAGE_MISSING_KEYWORD = INDENTATION
-            + "Oh no! The keyword for find cannot be missing.\n";
+            + "Oh no! The keyword for find is missing.\n";
     public static final String MESSAGE_INVALID_COMMAND = INDENTATION
             + "Oh no! This command is invalid, please try again.\n";
     public static final String MESSAGE_MISSING_INDEX = INDENTATION
-            + "Oh no! The index for a task cannot be missing.\n";
+            + "Oh no! The index for a task is missing.\n";
     public static final String MESSAGE_NON_INTEGER =  INDENTATION
             + "Oh no! The index provided must be an integer.\n";
     public static final String MESSAGE_MISSING_DUE_DATE = INDENTATION

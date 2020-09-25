@@ -35,7 +35,7 @@ public class Ui {
      * Prints error message when loading tasks from duke.txt.
      */
     public void showLoadingError() {
-        out.println(INDENTATION + "(No previously loaded task from duke.txt)");
+        out.println("(No previously loaded task from duke.txt)");
     }
 
     public void printLine() {

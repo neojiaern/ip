@@ -15,7 +15,7 @@ public class AddCommand extends Command {
     public static final String INDENTATION = "    ";
     public static final String TODO_EXAMPLE = (INDENTATION + "todo: Adds a todo task."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION"
-            + System.lineSeparator() + INDENTATION + "  " + "Example: todo study");
+            + System.lineSeparator() + INDENTATION + "  " + "Example: todo CS2113T revision");
     public static final String DEADLINE_EXAMPLE = (INDENTATION + "deadline: Adds a deadline task."
             + System.lineSeparator() + INDENTATION + "  " + "Parameters: TASK_DESCRIPTION /by "
             + "DATE(YYYY-MM-DD) TIME(HH:mm)" + System.lineSeparator() + INDENTATION + "  "
