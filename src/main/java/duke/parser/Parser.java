@@ -12,6 +12,9 @@ import duke.commands.ListCommand;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static duke.common.Messages.MESSAGE_EXTRA_DESCRIPTION;
 import static duke.common.Messages.MESSAGE_INVALID_COMMAND;
@@ -153,13 +156,13 @@ public class Parser {
     /**
      * Processes find command.
      *
-     * @param inputParts String array containing find command and keyword.
+     * @param inputParts String array containing find command and keywords.
      * @return FindCommand containing keyword or IncorrectCommand if invalid.
      */
     public Command processFindCmd(String[] inputParts) {
         try {
-            String keyword = inputParts[1];
-            return new FindCommand(keyword);
+            List<String> keywords = new LinkedList<>(Arrays.asList(inputParts[1].split(" ")));
+            return new FindCommand(keywords);
         } catch (ArrayIndexOutOfBoundsException e) {
             String message = MESSAGE_MISSING_KEYWORD + FindCommand.FIND_EXAMPLE;
             return new IncorrectCommand(message);

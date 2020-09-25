@@ -6,6 +6,8 @@ import duke.commands.CommandResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static duke.common.Messages.MESSAGE_ADDED_TASK;
 import static duke.common.Messages.MESSAGE_DUE_TASK;
@@ -152,16 +154,17 @@ public class TaskList {
     /**
      * Finds tasks which match the keyword.
      *
-     * @param keyword keyword relating to a task.
+     * @param keywords keyword relating to a task.
      * @return list of tasks which match the keyword.
      */
-    public CommandResult findTaskByKeyword(String keyword) {
+    public CommandResult findTaskByKeyword(List<String> keywords) {
         String result = "";
         int count = 1;
         result = MESSAGE_FIND_TASK;
         for (int i = 1; i <= tasks.size(); i++) {
             Task task = tasks.get(i - 1);
-            if (task.taskName.contains(keyword)) {
+            // Checks if a task matches any keyword
+            if (keywords.stream().anyMatch(s -> task.taskName.toLowerCase().contains(s.toLowerCase()))) {
                 result += "\n" + INDENTATION + count + "." + tasks.get(i - 1).toString();
                 count++;
             }
