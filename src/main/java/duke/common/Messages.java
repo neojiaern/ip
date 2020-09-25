@@ -45,4 +45,5 @@ public class Messages {
     public static final String MESSAGE_NO_TASK_FOUND = INDENTATION
             + "There are no task(s) which match the given keyword.";
     public static final String MESSAGE_ERROR_COMPARING = "(Error comparing files.)";
+    public static final String MESSAGE_DUPLICATE_TASK =  INDENTATION + "Oh no! The task already exists.";
 }

@@ -6,22 +6,9 @@ import duke.commands.CommandResult;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static duke.common.Messages.MESSAGE_ADDED_TASK;
-import static duke.common.Messages.MESSAGE_DUE_TASK;
-import static duke.common.Messages.MESSAGE_FIND_TASK;
-import static duke.common.Messages.MESSAGE_LIST_TASK;
-import static duke.common.Messages.MESSAGE_MARK_AS_DONE;
-import static duke.common.Messages.MESSAGE_MISSING_AT_DESCRIPTION;
-import static duke.common.Messages.MESSAGE_MISSING_BY_DESCRIPTION;
-import static duke.common.Messages.MESSAGE_NO_DUE_TASK;
-import static duke.common.Messages.MESSAGE_NO_TASK;
-import static duke.common.Messages.MESSAGE_NO_TASK_FOUND;
-import static duke.common.Messages.MESSAGE_REMOVED_TASK;
-import static duke.common.Messages.MESSAGE_TASK_NOT_FOUND;
-import static duke.common.Messages.MESSAGE_WRONG_DATE_TIME_FORMAT;
+import static duke.common.Messages.*;
 
 /**
  * Deals with operations relating to TaskList.
@@ -56,6 +43,10 @@ public class TaskList {
      * @return success message and task which has been added, or error message if invalid.
      */
     public CommandResult addTask(String taskType, String taskDescription) {
+        boolean isDuplicate = checkDuplicate(taskDescription);
+        if (isDuplicate) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
         switch (taskType) {
         case AddCommand.COMMAND_WORD_T:
             Task todoTask = new Todo(taskDescription);
@@ -95,6 +86,17 @@ public class TaskList {
                 + INDENTATION + "Now you have " + tasks.size() + " task(s) in the list.";
 
         return new CommandResult(result);
+    }
+
+    private boolean checkDuplicate(String taskDescription) {
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task task = tasks.get(i - 1);
+            // Checks if a task description is duplicated
+            if (task.taskName.equalsIgnoreCase(taskDescription)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
