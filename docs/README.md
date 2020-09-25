@@ -220,14 +220,14 @@ Bye. Hope to see you again soon!
 Duke data is automatically saved into data/duke.txt in the home folder ip.jar is in.
 
 ## Command summary
-Action | Format, Examples
------------- | -------------
-Bye | `bye`
-Deadline | `deadline TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `deadline CS2113T assignment /by 2020-10-02 23:59`
-Delete | `delete INDEX_OF_TASK_TO_DELETE` <br> e.g. `delete 2`
-Done | `done INDEX_OF_COMPLETED_TASK` <br> e.g. `done 2`
-Due | `due DATE(YYYY-MM-DD)` <br> e.g. `due 2020-10-02`
-Event | `event TASK_DESCRIPTION /at DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `event project meeting /at 2020-10-01 14:00`
-Find | `find KEYWORD [MORE_KEYWORDS]` <br> `find CS2113T`
-List | `list`
-Todo | `todo TASK_DESCRIPTION` <br> e.g. `todo CS2113T revision`
+| Action | Format, Examples |
+| ------------ | ------------- |
+| Bye | `bye` |
+| Deadline | `deadline TASK_DESCRIPTION /by DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `deadline CS2113T assignment /by 2020-10-02 23:59` |
+| Delete | `delete INDEX_OF_TASK_TO_DELETE` <br> e.g. `delete 2` |
+| Done | `done INDEX_OF_COMPLETED_TASK` <br> e.g. `done 2` |
+| Due | `due DATE(YYYY-MM-DD)` <br> e.g. `due 2020-10-02` |
+| Event | `event TASK_DESCRIPTION /at DATE(YYYY-MM-DD) TIME(HH:mm)` <br> e.g. `event project meeting /at 2020-10-01 14:00` |
+| Find | `find KEYWORD [MORE_KEYWORDS]` <br> `find CS2113T` |
+| List | `list` |
+| Todo | `todo TASK_DESCRIPTION` <br> e.g. `todo CS2113T revision` |
