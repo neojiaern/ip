@@ -8,7 +8,7 @@ Duke is a program that allows users to track theirs tasks via the Command Line I
 3. Copy the jar file to the folder you want to use as the home folder for Duke.
 4. Open a command window in that folder.
 5. Run the command `java -jar ip.jar` and you should see the welcome message as shown below:
-![Welcome message](images/welcome_message.PNG) <br />
+![Welcome message](docs/images/welcome_message.PNG) <br />
 with the message `(No previously loaded task from duke.txt)` above the Duke logo if this is your first time running Duke.
 6. Type the command in the command line and type enter to execute it. <br />
 Some example commands you can try:
