@@ -54,7 +54,7 @@ public class Duke {
             String userInput = ui.getUserInput();
             ui.printLine();
             Command c = parser.parse(userInput);
-            CommandResult result = c.execute(tasks, ui);
+            CommandResult result = c.execute(tasks);
             ui.printResult(result);
             isExit = c.isExit();
             ui.printLine();

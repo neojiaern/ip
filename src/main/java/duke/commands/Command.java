@@ -8,7 +8,7 @@ public abstract class Command {
     /**
      * Method to be implemented by child classes
      */
-    public abstract CommandResult execute(TaskList tasks, Ui ui) ;
+    public abstract CommandResult execute(TaskList tasks) ;
 
     public boolean isExit() {
         return false;

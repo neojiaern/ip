@@ -29,7 +29,7 @@ public class DueCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList tasks, Ui ui) {
+    public CommandResult execute(TaskList tasks) {
         return tasks.findDueTasks(date);
     }
 }

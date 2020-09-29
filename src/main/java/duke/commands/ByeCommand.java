@@ -14,7 +14,7 @@ public class ByeCommand extends Command {
             + System.lineSeparator() + INDENTATION + "  " + "Example: bye");
 
     @Override
-    public CommandResult execute(TaskList tasks, Ui ui) {
+    public CommandResult execute(TaskList tasks) {
         return new CommandResult(INDENTATION + "Bye. Hope to see you again soon!");
     }
 

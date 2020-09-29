@@ -15,7 +15,7 @@ public class IncorrectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList tasks, Ui ui) {
+    public CommandResult execute(TaskList tasks) {
         return new CommandResult(message);
     }
 }

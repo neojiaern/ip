@@ -27,7 +27,7 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(TaskList tasks, Ui ui) {
+    public CommandResult execute(TaskList tasks) {
         return tasks.doneTask(doneIndex);
     }
 }
